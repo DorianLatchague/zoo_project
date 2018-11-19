@@ -58,7 +58,7 @@ class Usermanager(models.Manager):
         self.day += 1
         return self.day
     
-    def advance_day_money(self, daily_visitor, ticket_price)
+    def advance_day_money(self, daily_visitor, ticket_price):
         daily_money  = ticket_price * daily_visitor
         self.money += daily_money
         return daily_money

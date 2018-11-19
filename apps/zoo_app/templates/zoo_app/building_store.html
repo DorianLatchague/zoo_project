@@ -1,44 +1,15 @@
 {% extends 'zoo_app/base.html' %}
 
 {% block main %}
-<h1>Building Store for {{zoo.name}}</h1>
-<table>
-    <thead>
-        <th>Location</th>
-        <th>Exhibit Name</th>
-        <th>Exhibit Climate</th>
-    </thead>
-    <tbody>
-{% count = 1 %}
-{% for exhibit in exhibits %}
-    <tr>
-{% if exhibit == "empty" %}
-        <td>{{count}}</td>
-        <td>Empty</td>
-        <td>Empty</td>
-{% else %}
-        <td>{{count}}</td>
-        <td>exhibit.name</td>
-        <td>exhibit.climate</td>
-{% endif %}
-{% count = count + 1 %}
-    </tr>
-{% endfor %}
-    </tbody>
-</table>
-<form>
+<h1>Building Store: Location {{location}}</h1>
+<form action="/zoo/{{zoo.id}}/buy_building/{{location}}" method="post">
     {% csrf_token %}
-    <select>
-        {% for building in buildings %}
-        <option>{{building.name}}</option>
-        {% endfor %}
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.extra_tags == "building" %}
-        <p>{{message}}</p>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
+    <input type="text" name="name">
+    <select name="climate">
+        <option>arctic</option>
+        <option>savanna</option>
+        <option>forest</option>
+        <option>jungle</option>
     </select>
     <button>Build</button>
 </form>

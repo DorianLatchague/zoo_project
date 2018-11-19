@@ -6,13 +6,13 @@
         <h1 style="display: inline-block; margin-top : 0;">{{zoo.name}}</h1>
         <img src="../../static/zoo_app/img/{{zoo.weather}}.gif" alt="{{zoo.weather}}" style="width: 80px; height: auto; border: 2px solid black; float: right;">
     </div>
-    {% for count in range(1, (exhibits|length)+1) %}
-        {% if habitat == "empty" %}
-        <a href="/zoo/build_store/{{zoo.id}}/{{count}}"><img src="../../static/zoo_app/img/empty.jpg" alt="no_building" style="width: 100px; height: 100px; border: 2px solid black;"></a>
+    {% for exhibit in exhibits %}
+        {% if exhibit.1 == "empty" %}
+        <a href="/zoo/{{zoo.id}}/build_store/{{exhibit.0}}"><img src="../../static/zoo_app/img/empty.jpg" alt="no_building" style="width: 100px; height: 100px; border: 2px solid black;"></a>
         {% else %}
-        <a href="/zoo/building/{{zoo.id}}/{{count}}"><img src="../../static/zoo_app/img/{{habitat.climate}}.jpg" alt="{{habitat.climate}}" style="width: 100px; height: 100px; border: 2px solid black;"></a>
+        <a href="/zoo/building/{{exhibit.id}}"><img src="../../static/zoo_app/img/{{exhibit.1.climate}}.jpg" alt="{{exhibit.climate}}" style="width: 100px; height: 100px; border: 2px solid black;"></a>
         {% endif %}
     {% endfor %}
-<a href="/zoo/manage"><div class="entrance" style="width: 790px; height: 100px; border: 2px solid black; display: inline-block; margin-top: 20px;">Entrance</div></a>
+<a href="/zoo/{{zoo.id}}/manage"><div class="entrance" style="width: 790px; height: 100px; border: 2px solid black; display: inline-block; margin-top: 20px;">Entrance</div></a>
 </div>
 {% endblock %}

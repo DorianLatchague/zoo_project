@@ -16,7 +16,7 @@ def logging_in(request):
             return redirect('/')
         else:
             request.session['id'] = Users.objects.get(email=request.POST['log_email']).id
-            return redirect('/zoo/')
+            return redirect('/zoo/1')
     else: 
         return redirect('/')
 def registering(request):
@@ -30,7 +30,7 @@ def registering(request):
             pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
             info = Users.objects.create(first_name=str.capitalize(request.POST['first_name']), last_name=str.capitalize(request.POST['last_name']), email=request.POST['email'], password=pw_hash)
             request.session['id'] = info.id
-            return redirect('/zoo/')
+            return redirect('/zoo/1')
     else: 
         return redirect('/')
 def edit(request, id):
@@ -41,7 +41,7 @@ def edit(request, id):
             }
             return render(request, 'logreg_app/edit.html', context)
         else:
-            return redirect('/zoo/')
+            return redirect('/zoo/1')
     else:
         return redirect('/')
 def editing(request, id):
@@ -60,7 +60,7 @@ def editing(request, id):
                 user.save()
                 return redirect('/myaccount/'+str(id))
         else:
-            return redirect('/zoo/')
+            return redirect('/zoo/1')
     return redirect('/myaccount/'+str(id))
 def logout(request):
     request.session.clear()
