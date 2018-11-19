@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block header %}
+        <title>Zoo</title>
+        {% endblock header %}
+        <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <script>
+        $(document).ready(function(){
+            $("#rules").click(function(){
+                $(".rules").toggle();
+            });
+            $("#close_rules").click(function(){
+                $(".rules").hide();
+            });
+        });
+        </script>
+    </head>
+    <body>
+        {% block nav %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">Zoo</a>
+            <!-- <img src="" alt="titleimg"> -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/zoo/">Your Zoo<span class="sr-only">(current)</span></a> 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">{{user.username}}<span class="sr-only">(current)</span></a> 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">{{user.money}} ZooCash<span class="sr-only">(current)</span></a> 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Day {{user.day.day}}<span class="sr-only">(current)</span></a> 
+                </li>
+            </ul>
+            <a id="rules" style="color: black;" class="nav-item nav-link">Rules</a>
+            <a style="color: black;" href="/logoff" class="nav-item nav-link">Log off</a>
+        </nav>
+        {% endblock nav %}
+        {% block rules %}
+        <div class="rules" style="border: 2px solid black; display: none; position: fixed; background-color: green;">
+            <h1>Rules!</h1>
+            <p>Insert rules here!</p>
+            <button id="close_rules">Close</button>
+        </div>
+        {% endblock rules %}
+        <div class="main">
+            {% block main %}
+            <p>Main Content goes here!</p>
+            {% endblock main %}
+        </div>
+        <div class="footer">
+            {% block footer %}
+            Sershon Inc.©
+            {% endblock footer %}
+        </div>
+    </body>
+</html>

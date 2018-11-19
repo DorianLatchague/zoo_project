@@ -1,0 +1,10 @@
+{% extends 'zoo_app/base.html' %}
+
+{% block main %}
+<form>
+    {% csrf_token %}
+    <label>Ticket Price:</label>
+    <input name="ticket_price" type="text" value="{{ticket_price}}">
+    <button>Submit Changes</button>
+</form>
+{% endblock %}

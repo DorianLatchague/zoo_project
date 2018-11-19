@@ -1,0 +1,33 @@
+{% extends 'zoo_app/base.html' %}
+
+{% block main %}
+<h1>{{this_building.name}}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Breed</th>
+            <th>Food choices</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for animal in this_building.inhabitants.all %}
+        <tr>
+            <td>{{animal.name}}</td>
+            <td>{{animal.breed.name}}</td>
+            <td>
+                {% for food in animal.diet.all %}
+                <form action="/buy_food/{{animal.id}}">
+                    {% csrf_token %}
+                    <input type="hidden" name="food" value="{{food.name}}">
+                    <button>{{food.name}}</button>
+                    <label>Price: {{food.price}}</label>
+                </form>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/zoo/animal_store/{{this_building.id}}">Visit your Store!</a>
+{% endblock %}

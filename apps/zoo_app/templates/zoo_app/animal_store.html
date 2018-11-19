@@ -1,0 +1,28 @@
+{% extends 'zoo_app/base.html' %}
+
+{% block main %}
+<h1>{{this_building.kind.name}} Store</h1>
+<form>
+    {% csrf_token %}
+    {% for breed in this_building.animals.all %}
+    <h1>{{breed.breed}}</h1>
+    <select name="{{breed.breed}}">
+        <option selected="selected">0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+    </select>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.extra_tags == breed.breed %}
+    <p>{{message}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    <button>Buy</button>
+</form>
+{% endblock %}
