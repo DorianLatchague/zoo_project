@@ -16,7 +16,7 @@
         {% for animal in this_building.inhabitants.all %}
         <tr>
             <td>{{animal.name}}</td>
-            <td>{{animal.breed}}</td>
+            <td>{{animal.get_breed_display}}</td>
             <td>{{animal.happiness}}</td>
             <td>{{animal.health}}</td>
             <td>

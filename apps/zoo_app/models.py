@@ -437,20 +437,20 @@ class Animal(models.Model):
     health = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     happiness = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     breed = models.CharField(max_length=55, choices=(
-        ('grizzly_bear','grizzly_bear'),
-        ('wolf','wolf'),
-        ('owl','owl'),
-        ('giraffe','giraffe'),
-        ('lion','lion'),
-        ('rhino','rhino'),
-        ('african_elephant','african_elephant'),
-        ('polar_bear','polar_bear'),
-        ('arctic_fox','arctic_fox'),
-        ('penguin','penguin'),
-        ('tiger','tiger'),
-        ('orangutan','orangutan'),
-        ('fruit_bat','fruit_bat'),
-        ('asian_elephant','asian_elephant'),
+        ('grizzly_bear','Grizzly Bear'),
+        ('wolf','Wolf'),
+        ('owl','Owl'),
+        ('giraffe','Giraffe'),
+        ('lion','Lion'),
+        ('rhino','Rhino'),
+        ('african_elephant','African Elephant'),
+        ('polar_bear','Polar Bear'),
+        ('arctic_fox','Arctic Fox'),
+        ('penguin','Penguin'),
+        ('tiger','Tiger'),
+        ('orangutan','Orangutan'),
+        ('fruit_bat','Fruit Bat'),
+        ('asian_elephant','Asian Elephant'),
     ))
     lifespan =  models.PositiveSmallIntegerField()
     popularity = models.PositiveSmallIntegerField()
