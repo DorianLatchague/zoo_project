@@ -1,18 +1,12 @@
 {% extends 'zoo_app/base.html' %}
 
 {% block script %}
-$( "select" ).change(function () {
-    var str = ""
-    $( "select option:selected" ).each(function() {
-        str += $(this).attr('price')+" ZooCash";
-    });
-    $( "button" ).text( str );
-})
+
 .change();
 {% endblock script %}
 {% block main %}
 <h1 style="display: inline-block;">{{this_building.name}}</h1>
-<h1 style="float: right;">{{total.size}}/{{capacity}}</h1>
+<h1 style="float: right;">{{fullness}}/{{capacity}}</h1>
 <table class="table">
     <thead class="thead-light">
         <tr>
@@ -21,6 +15,9 @@ $( "select" ).change(function () {
             <th>Happiness</th>
             <th>Health</th>
             <th>Food choices</th>
+            {% if messages %}
+            <th>Message</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -34,17 +31,33 @@ $( "select" ).change(function () {
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
                     <label>Feed</label>
-                    <select class="select" name="food">
+                    <select class="select{{animal.id}}" name="food">
                         <option value="grasses" price="80">Grasses</option>
                         <option value="leaves" price="100">Leaves</option>
                         <option value="fruit" price="120">Fruits</option>
                         <option value="meat" price="140">Meat</option>
                         <option value="fish" price="160">Fish</option>
                     </select>
-                    <button class="price"></button>
+                    <button class="price{{animal.id}}">80 ZooCash</button>
+                    <script>
+                    $( ".select{{animal.id}}" ).change(function () {
+                        var str = ""
+                        $( ".select{{animal.id}} option:selected" ).each(function() {
+                            str += $(this).attr('price')+" ZooCash";
+                        });
+                        $( ".price{{animal.id}}" ).text( str );
+                    })
+                    </script>
                 </form>
             </td>
-        </tr>
+            <td>{% if messages %}
+                {% for message in messages %}
+                {% if message.extra_tags == animal.id %}
+                {{message}}
+                {% endif %}
+                {% endfor %}
+                {% endif %}</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

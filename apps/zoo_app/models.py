@@ -322,7 +322,7 @@ class Zoo(models.Model):
         self.save()
         return self
     
-    def average_happiness(self)
+    def average_happiness(self):
         exhibits = self.exhibits.all()
         all_animals = 0
         total_happiness = 0
@@ -333,7 +333,7 @@ class Zoo(models.Model):
         average_happiness = total_happines//all_animals
         return average_happiness
  
-    def average_health(self)
+    def average_health(self):
         exhibits = self.exhibits.all()
         all_animals = 0
         total_health = 0
@@ -423,7 +423,7 @@ class Habitat(models.Model):
     def how_full(self):
         all_animals = self.inhabitants.all()
         fullness = 0
-        for inhabitant in inhabitants:
+        for inhabitant in all_animals:
             fullness = fullness + inhabitant.size
         return fullness
 
@@ -523,7 +523,7 @@ class Animal(models.Model):
         self.save()
         return self
 
-    def validate_health(self)
+    def validate_health(self):
         if self.health>100:
             self.health=100
         if self.health<1:
@@ -532,7 +532,7 @@ class Animal(models.Model):
         self.save()
         return self
 
-    def validate_happiness(self)
+    def validate_happiness(self):
         if self.happiness>100:
             self.happiness=100
         if self.happiness<1:
@@ -552,7 +552,7 @@ class Animal(models.Model):
         self.habitat.zoo.owner.save()
         return self.feed_message(food, meal["taste"], meal["nutrition"])
     
-    def feed_message(food, taste, nutrition):
+    def feed_message(self, food, taste, nutrition):
         pet = self.breed
         messages = ""
         if taste ==5:
@@ -578,22 +578,22 @@ class Animal(models.Model):
         if taste ==-5:
             message = "Your "+pet +" hates this " +food+ "!"
 
-        if nutrition >3
+        if nutrition >3:
             message = message + " It keeps them extremely healthy!"
-        if nutrition ==3 or nutrition == 4 
+        if nutrition ==3 or nutrition == 4:
             message = message + " It's good for their health."
         if nutrition ==1 or nutrition ==2:
             message = message + " It is a little healthy for them."
-        if nutrition ==0
+        if nutrition ==0:
             message = message + " It's had no effect on their health."
-        if nutrition ==-1 or nutrition ==-2
+        if nutrition ==-1 or nutrition ==-2:
             message = message + " It's not very good for them."
-        if nutrition ==-3 or nutrition ==-4
+        if nutrition ==-3 or nutrition ==-4:
             message = message + " It's upset their stomach.:("
-        if nutrition ==-5
+        if nutrition ==-5:
             message = message + " It has made them sick!"
         return message
 
-    def description(self)
+    def description(self):
         description = animals[self.breed]["description"]
         return description
