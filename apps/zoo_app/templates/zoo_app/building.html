@@ -7,6 +7,8 @@
         <tr>
             <th>Name</th>
             <th>Breed</th>
+            <th>Happiness</th>
+            <th>Health</th>
             <th>Food choices</th>
         </tr>
     </thead>
@@ -15,12 +17,38 @@
         <tr>
             <td>{{animal.name}}</td>
             <td>{{animal.breed}}</td>
+            <td>{{animal.happiness}}</td>
+            <td>{{animal.health}}</td>
             <td>
-                <form action="/buy_food/{{animal.id}}">
+                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="food" value="{{food.name}}">
+                    <label>Leaves</label>
+                    <input type="hidden" name="food" value="leaves">
                     <button>Feed</button>
-                    <label>Price: {{food.price}}</label>
+                </form>
+                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
+                    {% csrf_token %}
+                    <label>Grasses</label>
+                    <input type="hidden" name="food" value="grasses">
+                    <button>Feed</button>
+                </form>
+                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
+                    {% csrf_token %}
+                    <label>Fruit</label>
+                    <input type="hidden" name="food" value="fruit">
+                    <button>Feed</button>
+                </form>
+                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
+                    {% csrf_token %}
+                    <label>Fish</label>
+                    <input type="hidden" name="food" value="fish">
+                    <button>Feed</button>
+                </form>
+                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
+                    {% csrf_token %}
+                    <label>Meat</label>
+                    <input type="hidden" name="food" value="meat">
+                    <button>Feed</button>
                 </form>
             </td>
         </tr>

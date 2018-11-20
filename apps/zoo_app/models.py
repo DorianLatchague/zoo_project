@@ -302,15 +302,13 @@ class Zoo(models.Model):
         return self
 
     def zoo_popularity(self):
-        exhibits = self.exhibit.all()
+        exhibits = self.exhibits.all()
         total = 0
         for exhibit in exhibits:
             total = total +exhibit.attractiveness()
-        total = total//self.exhibit.count()
-
-        
+        total = total//self.exhibits.count() #total = number between 0 and 100
          #takeintoaccountticketprice
-
+        return total
     #change_ticket_price(self, price)
 
     #ADD EXHIBIT TO ZOO
@@ -321,18 +319,23 @@ class Zoo(models.Model):
         return self
 
     def advance_day(self):
-        all_animals = self.exhibit.inhabitants.all()
-        for animal in all_animals:
-            animal.day_end()
-        update_weather(self)
-        for animal in all_animals:
-            animal.day_start()
+        all_exhibits = self.exhibits.all()
+        print("The weather is " + str(self.weather))
+        for exhibit in all_exhibits:
+            for animal in exhibit.inhabitants.all():
+                animal.day_end()
+                animal.save()
+        self.update_weather()
+        print("The weather is "+ str(self.weather))
+        self.ticket_price = self.tomorrows_ticket_price
+        self.save()
+        for exhibit in all_exhibits:
+            for animal in exhibit.inhabitants.all():
+                animal.day_start()
+                animal.save()
         # update_events(self)
-        # update_ticket_price(self)
-        daily_visitors = zoo_popularity(self) * 4
+        daily_visitors = self.zoo_popularity() * 4
         return daily_visitors
-
-
 
 ##HABITAT MANAGER
 class HabitatManager(models.Manager):
@@ -465,11 +468,11 @@ class Animal(models.Model):
 
 #DAY POST
     def day_start(self):
-        self.happiness = self.happiness + animals[self.breed]["weather_prefs"][self.habitat.zoo.weather]
+        self.happiness = self.happiness + animals[self.breed]["weather_prefs"][self.habitat.zoo.get_weather_display()]
         return self
 
     def day_end(self): #animal.advance_day
-        self.happiness = self.happiness - animals[self.breed]["weather_prefs"][self.habitat.zoo.weather]
+        self.happiness = self.happiness - animals[self.breed]["weather_prefs"][self.habitat.zoo.get_weather_display()]
         return self
 
 #FEED POST
@@ -477,5 +480,7 @@ class Animal(models.Model):
         meal = animals[self.breed]["diet"][food]
         self.happiness = self.happiness + meal["taste"]
         self.health = self.health + meal["nutrition"]
-        self.habitat.zoo.owner.money = self.habitat.zoo.owner.money - meal[price]
+        self.save()
+        self.habitat.zoo.owner.money = self.habitat.zoo.owner.money - meal["price"]
+        self.habitat.zoo.owner.save()
         return self

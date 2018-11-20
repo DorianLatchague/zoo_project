@@ -9,6 +9,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-confirmation2/dist/bootstrap-confirmation.min.js"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% load static %}
@@ -26,6 +27,9 @@
             $("#close_daily_log").click(function(){
                 $(".daily_log").hide();
             })
+            $('[data-toggle=confirmation]').confirmation({rootSelector: '[data-toggle=confirmation]',
+            // other options
+            });
         });
         </script>
     </head>
@@ -43,6 +47,9 @@
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link">{{user.money}} ZooCash</a> 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" data-toggle="confirmation" data-btn-ok-label="Continue" data-btn-ok-class="btn-outline-success" data-btn-cancel-label="Go Back" data-btn-cancel-class="btn-outline-danger" data-title="Are you sure?" data-content="Pressing 'Continue' will move you on to the next day." href="/zoo/advance_day">Next Day</a>
                 </li>
             </ul>
             <a id="daily_log" class="nav-link">Day {{user.day}}</a> 

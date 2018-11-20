@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/buy_building/(?P<location>\d+)$', views.buy_building),
     url(r'^(?P<building_id>\d+)/buy_animal$', views.buy_animal),
     url(r'^ticket_price$', views.change_ticket_price),
-    url(r'^buy_food/(?P<id>\d+)$', views.buy_food),
+    url(r'^buy_food/(?P<animal_id>\d+)$', views.buy_food),
     url(r'^advance_day$', views.advance_day),
 ]

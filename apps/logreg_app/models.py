@@ -54,15 +54,6 @@ class Usermanager(models.Manager):
             errors['last_name'] = "Your last name must contain only letters."
         return errors
 
-    def advance_day(self):
-        self.day += 1
-        return self.day
-    
-    def advance_day_money(self, daily_visitor, ticket_price):
-        daily_money  = ticket_price * daily_visitor
-        self.money += daily_money
-        return daily_money
-
 class Users(models.Model):
     email = models.CharField(max_length=55)
     first_name = models.CharField(max_length=55)
@@ -73,3 +64,14 @@ class Users(models.Model):
     money = models.IntegerField(default=50000)
     day = models.IntegerField(default=1)
     objects = Usermanager()
+
+    def advance_day(self):
+        self.day += 1
+        self.save()
+        return self.day
+    
+    def advance_day_money(self, daily_visitor, ticket_price):
+        daily_money  = ticket_price * daily_visitor
+        self.money += daily_money
+        self.save()
+        return daily_money

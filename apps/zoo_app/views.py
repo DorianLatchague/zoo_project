@@ -63,20 +63,22 @@ def change_ticket_price(request, zoo_id):
         Zoo.objects.change_ticket_price_validator(request.POST)
         zoo = Zoo.objects.get(id=int(zoo_id)).change_ticket_price(request.POST['price'])
     return redirect('/zoo/manage')
-def buy_food(request, id):
+def buy_food(request, animal_id):
     if request.method=="POST":
-        Animal.objects.get(id=int(id)).feed(request.POST['food'])
-    return redirect('/zoo/building/'+str(id))
+        animal = Animal.objects.get(id=int(animal_id))
+        animal.feed(request.POST['food'])
+        animal_habitat = animal.habitat.id
+        return redirect('/zoo/building/'+str(animal_habitat))
+    return redirect('/zoo/1')
 def advance_day(request):
-    if request.method=="POST":
-        request.session['daily_log'] = {}
-        user = Users.objects.get(id=request.session['id'])
-        for zoo in user.zoos.all():
-            daily_visitors = zoo.objects.advance_day()
-            daily_money = user.advance_day_money(daily_visitors, zoo.ticket_price) 
-            request.session['daily_log'][zoo.name] = {"daily_money" : daily_money,
-            "daily_visitors" : daily_visitors}
-            request.session['daily_log'][zoo.name]["weather"] = zoo.weather
-            request.session['daily_log'][zoo.name]["ticket_price"] = zoo.ticket_price
-        user.advance_day()
-    return redirect('/zoo')
+    request.session['daily_log'] = {}
+    user = Users.objects.get(id=request.session['id'])
+    for zoo in user.zoos.all():
+        daily_visitors = zoo.advance_day()
+        daily_money = user.advance_day_money(daily_visitors, zoo.ticket_price) 
+        request.session['daily_log'][zoo.name] = {"daily_money" : daily_money,
+        "daily_visitors" : daily_visitors}
+        request.session['daily_log'][zoo.name]["weather"] = zoo.weather
+        request.session['daily_log'][zoo.name]["ticket_price"] = zoo.ticket_price
+    user.advance_day()
+    return redirect('/zoo/1')
