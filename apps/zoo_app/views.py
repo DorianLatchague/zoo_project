@@ -112,7 +112,7 @@ def buy_food(request, animal_id):
     if request.method=="POST":
         animal = Animal.objects.get(id=int(animal_id))
         message = animal.feed(request.POST['food'])
-        messages.success(request, message)
+        messages.success(request, message, extra_tags=animal.id)
         animal_habitat = animal.habitat.id
         return redirect('/zoo/building/'+str(animal_habitat))
     return redirect('/zoo/1')
