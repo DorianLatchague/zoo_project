@@ -115,7 +115,7 @@ def buy_food(request, animal_id):
         messages.success(request, message, extra_tags=animal.id)
         animal_habitat = animal.habitat.id
         return redirect('/zoo/building/'+str(animal_habitat))
-    return redirect('/zoo/1')
+    return redirect('/zoo/')
 
 def advance_day(request):
     request.session['daily_log'] = {}
@@ -129,4 +129,4 @@ def advance_day(request):
         request.session['daily_log'][zoo.name]["ticket_price"] = zoo.ticket_price
     user.advance_day()
     print(request.session['daily_log'])
-    return redirect('/zoo/daily_log')
+    return redirect('/zoo/'+str(zoo.id))

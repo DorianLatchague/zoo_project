@@ -265,7 +265,7 @@ class ZooManager(models.Manager):
             weather = 2,
         )
         new_zoo.update_weather()
-        owner.money -= 20000
+        owner.money -= 35000
         owner.save()
         return new_zoo
 
@@ -310,9 +310,9 @@ class Zoo(models.Model):
             exhibits = self.exhibits.all()
             total = 0
             for exhibit in exhibits:
-                total = total +exhibit.attractiveness()
+                total = total + exhibit.attractiveness()
             total = total//self.exhibits.count()
-            total = total * -3*self.ticket_price+115
+            total = total * (-3*self.ticket_price+115)//100
             if total<0:
                 total=0
             return total  #total = number between 0 and 100
@@ -366,7 +366,7 @@ class Zoo(models.Model):
                 animal.day_start()
                 animal.save()
         # update_events(self)
-        daily_visitors = self.zoo_popularity() * self.exhibit.count()
+        daily_visitors = self.zoo_popularity() * self.exhibits.count()
         return {"daily_visitors": daily_visitors, "weather": self.get_weather_display(),}
 
 ##HABITAT MANAGER
@@ -558,25 +558,25 @@ class Animal(models.Model):
         if taste ==5:
             message = "Your "+pet +" loves " +food+ "!"
         if taste ==4:
-            "Your "+pet +" really likes this " +food+ "."
+            "Your "+pet +" really likes " +food+ "."
         if taste ==3:
-            message = "Your "+pet +" likes this " +food+ "."
+            message = "Your "+pet +" likes " +food+ "."
         if taste ==2:
-            message = "Your "+pet +" is ok with this " +food+ "."
+            message = "Your "+pet +" is ok with " +food+ "."
         if taste ==1:
-            message = "Your "+pet +" tolerates this " +food+ "."
+            message = "Your "+pet +" tolerates " +food+ "."
         if taste ==0:
-            message = "Your "+pet +" doesn't prefer this " +food+ "."
+            message = "Your "+pet +" doesn't prefer " +food+ "."
         if taste ==-1:
-            message = "Your "+pet +" dislikes this " +food+ "."
+            message = "Your "+pet +" dislikes " +food+ "."
         if taste ==-2:
-            message = "Your "+pet +" dislikes this " +food+ "."
+            message = "Your "+pet +" dislikes " +food+ "."
         if taste ==-3:
-            message = "Your "+pet +" really dislikes this " +food+ "."
+            message = "Your "+pet +" really dislikes " +food+ "."
         if taste ==-4:
-            message = "Your "+pet +" really dislikes this " +food+ "."
+            message = "Your "+pet +" really dislikes " +food+ "."
         if taste ==-5:
-            message = "Your "+pet +" hates this " +food+ "!"
+            message = "Your "+pet +" hates " +food+ "!"
 
         if nutrition >3:
             message = message + " It keeps them extremely healthy!"
