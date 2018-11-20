@@ -21,182 +21,182 @@ animals = {
             "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
             "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
             "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fruit":{"taste": 5,"nutrition": 3, "price": price["food"]["fruit"]},
             "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
+        "lifespan":(1000,1250), #this is a tuple of min lifespan and max lifespan
+        "popularity":95, #this should be a number between 80 and 100
         "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "price": 4000, #between 1000 and 4000
     },
-    "wolves": { #FOREST
-        "description":"Here is a description of a grizzly bear!",
+    "wolf": { #FOREST
+        "description":"Wolves are awesome and also cute!",
         "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
+            "meat":{"taste": 5,"nutrition": 5,"price": price["food"]["meat"]},
+            "grasses":{"taste": -4,"nutrition": 1, "price": price["food"]["grasses"]},
             "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "fruit":{"taste": 2,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": 4, "nutrition": 4, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(250,300), #this is a tuple of min lifespan and max lifespan
+        "popularity":90, #this should be a number between 80 and 100
+        "size":2, #capacity of habitat is 12. This should be a 1, 2, 3, or 4
+        "price": 2000, #between 1000 and 4000
     },
-    "owls": { #FOREST
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+    "owl": { #FOREST
+        "description":"Here is a description of an owl!",
+        "weather_prefs":{"overcast":10,"sunny":0,"rainy": -4,"stormy": -2}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": 5,"nutrition": 5,"price": price["food"]["meat"]},
+            "grasses":{"taste": -4,"nutrition": -3, "price": price["food"]["grasses"]},
+            "leaves":{"taste": -4, "nutrition": -2, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 1,"nutrition": 1, "price": price["food"]["fruit"]},
+            "fish":{"taste": 3, "nutrition": 3, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(200,250), #this is a tuple of min lifespan and max lifespan
+        "popularity":82, #this should be a number between 80 and 100
+        "size":1, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 1000, #between 1000 and 4000
     },
     "giraffe": { #SAVANNA
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+        "description":"Here is a description of a giraffe!",
+        "weather_prefs":{"overcast":0,"sunny":10,"rainy": -6,"stormy": -10}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": -5,"nutrition": -5,"price": price["food"]["meat"]},
+            "grasses":{"taste": 3,"nutrition": 1, "price": price["food"]["grasses"]},
+            "leaves":{"taste": 5, "nutrition": 5, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 2,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": -4, "nutrition": -4, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
+        "lifespan":(1200,1300), #this is a tuple of min lifespan and max lifespan
+        "popularity":95, #this should be a number between 80 and 100
         "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "price": 4000, #between 1000 and 4000
     },
     "lion": { #SAVANNA
-        "description":"Here is a description of a grizzly bear!",
+        "description":"Here is a description of a lion!",
         "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": 5,"nutrition": 5,"price": price["food"]["meat"]},
+            "grasses":{"taste": -3,"nutrition": 1, "price": price["food"]["grasses"]},
+            "leaves":{"taste": -5, "nutrition": -5, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 0,"nutrition": 2, "price": price["food"]["fruit"]},
+            "fish":{"taste": 3, "nutrition": 4, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(500,700), #this is a tuple of min lifespan and max lifespan
+        "popularity":98, #this should be a number between 80 and 100
+        "size":3, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 4000, #between 1000 and 4000
     },
     "rhino": { #SAVANA
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+        "description":"Here is a description of a rhino!",
+        "weather_prefs":{"overcast":0,"sunny":8,"rainy": -4,"stormy": -6}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": -3,"nutrition": -4,"price": price["food"]["meat"]},
+            "grasses":{"taste": 4,"nutrition": 5, "price": price["food"]["grasses"]},
+            "leaves":{"taste": 1, "nutrition": 1, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 2,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": -3, "nutrition": -4, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(2000,2500), #this is a tuple of min lifespan and max lifespan
+        "popularity":92, #this should be a number between 80 and 100
+        "size":3, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 4000, #between 1000 and 4000
     },
     "african_elephant": { #SAVANNA
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+        "description":"Here is a description of an African elephant!",
+        "weather_prefs":{"overcast":0,"sunny":10,"rainy": -4,"stormy": -6}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": -5,"nutrition": 0,"price": price["food"]["meat"]},
+            "grasses":{"taste": 4,"nutrition": 5, "price": price["food"]["grasses"]},
+            "leaves":{"taste": 4, "nutrition": 4, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 5,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": 0, "nutrition": 2, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
+        "lifespan":(3000,3500), #this is a tuple of min lifespan and max lifespan
+        "popularity":90, #this should be a number between 80 and 100
         "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "price": 4000, #between 1000 and 4000
     },
     "polar_bear": { #ARCTIC
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+        "description":"Here is a description of a polar bear!",
+        "weather_prefs":{"overcast":5,"sunny":-7,"rainy": 5,"stormy": 3}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
+            "meat":{"taste": 5,"nutrition": 5,"price": price["food"]["meat"]},
+            "grasses":{"taste": -4,"nutrition": -2, "price": price["food"]["grasses"]},
             "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "fruit":{"taste": 2,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": 5, "nutrition": 5, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
+        "lifespan":(1200,1300), #this is a tuple of min lifespan and max lifespan
+        "popularity":100, #this should be a number between 80 and 100
         "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "price": 4000, #between 1000 and 4000
     },
     "arctic_fox": { #ARCTIC
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+        "description":"Here is a description of an arctic fox!",
+        "weather_prefs":{"overcast":6,"sunny":0,"rainy": -4,"stormy": -2}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
             "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
             "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "leaves":{"taste": -4, "nutrition": -2, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 4,"nutrition": 4, "price": price["food"]["fruit"]},
+            "fish":{"taste": 4, "nutrition": 5, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(200,250), #this is a tuple of min lifespan and max lifespan
+        "popularity":87, #this should be a number between 80 and 100
+        "size":2, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 1200, #between 1000 and 4000
     },
-    "penguins": { #ARCTIC
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+    "penguin": { #ARCTIC
+        "description":"Here is a description of a penguin!",
+        "weather_prefs":{"overcast":8,"sunny":2,"rainy": 6,"stormy": -3}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": 2,"nutrition": 4,"price": price["food"]["meat"]},
+            "grasses":{"taste": -4,"nutrition": -3, "price": price["food"]["grasses"]},
+            "leaves":{"taste": -5, "nutrition": -5, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 2,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": 5, "nutrition": 5, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(300,1000), #this is a tuple of min lifespan and max lifespan
+        "popularity":90, #this should be a number between 80 and 100
+        "size":1, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 2000, #between 1000 and 4000
     },
     "tiger": { #JUNGLE
-        "description":"Here is a description of a grizzly bear!",
+        "description":"Here is a description of a ferocious tiger!",
         "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": 5,"nutrition": 5,"price": price["food"]["meat"]},
+            "grasses":{"taste": 1,"nutrition": 2, "price": price["food"]["grasses"]},
+            "leaves":{"taste": -5, "nutrition": -3, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 2,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": 3, "nutrition": 4, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(800,900), #this is a tuple of min lifespan and max lifespan
+        "popularity":94, #this should be a number between 80 and 100
+        "size":3, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 3200, #between 1000 and 4000
     },
     "orangutan": { #JUNGLE
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+        "description":"Here is a description of an orangutan!",
+        "weather_prefs":{"overcast":4,"sunny":10,"rainy": -4,"stormy": -10}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": 4,"nutrition": 3,"price": price["food"]["meat"]},
+            "grasses":{"taste": 0,"nutrition": 1, "price": price["food"]["grasses"]},
+            "leaves":{"taste": 3, "nutrition": 4, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 5,"nutrition": 4, "price": price["food"]["fruit"]},
+            "fish":{"taste": 4, "nutrition": 5, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(1750,2250), #this is a tuple of min lifespan and max lifespan
+        "popularity":92, #this should be a number between 80 and 100
+        "size":3, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 4000, #between 1000 and 4000
     },
-    "fruit_bats": { #JUNGLE
-        "description":"Here is a description of a grizzly bear!",
-        "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
+    "fruit_bat": { #JUNGLE
+        "description":"Here is a description of a fruit bat!",
+        "weather_prefs":{"overcast":8,"sunny":6,"rainy": 0,"stormy": -10}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
             "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
             "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
@@ -204,32 +204,33 @@ animals = {
             "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
             "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
-        "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "lifespan":(1000,1250), #this is a tuple of min lifespan and max lifespan
+        "popularity":80, #this should be a number between 80 and 100
+        "size":1, #capacity of habitat is 12. This should be a 2, 3, or 4
+        "price": 2000, #between 1000 and 4000
     },
     "asian_elephant": { #JUNGLE
-        "description":"Here is a description of a grizzly bear!",
+        "description":"Here is a description of an Asian elephant!",
         "weather_prefs":{"overcast":0,"sunny":4,"rainy": -4,"stormy": -6}, #number between -10 and 10
         "diet":{ #numbers between -5 and 5
-            "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
-            "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
-            "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
-            "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
+            "meat":{"taste": -3,"nutrition": -5,"price": price["food"]["meat"]},
+            "grasses":{"taste": 4,"nutrition": 4, "price": price["food"]["grasses"]},
+            "leaves":{"taste": 5, "nutrition": 5, "price": price["food"]["leaves"]},
+            "fruit":{"taste": 5,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fish":{"taste": -1, "nutrition": 3, "price": price["food"]["fish"]} 
         },
-        "lifespan":(20,25), #this is a tuple of min lifespan and max lifespan
-        "popularity":95, #this should be a float between .8 and 1 (.8, .85, .9, .95, 1)
+        "lifespan":(2400,2500), #this is a tuple of min lifespan and max lifespan
+        "popularity":95, #this should be a number between 80 and 100
         "size":4, #capacity of habitat is 12. This should be a 2, 3, or 4
-        "price": 3600, #between 1000 and 4000
+        "price": 3800, #between 1000 and 4000
     },
 }
 habitats = {
     "arctic":{
         "description": "Description of the artarctic",
+        # "animals":[polar_bear, arctic_fox,]
         "price": 7000,
-        "popularity": 70, #a percentage?
+        "popularity": 70, #number between 50 and 100
         "capacity": 12, #how many animals will fit. I chose 12 because it has a lot of factors
     },
     "savanna":{
@@ -261,15 +262,13 @@ class ZooManager(models.Manager):
             owner = owner,
             name = name,
             capacity = 6,
-            current_weather = 2,
+            weather = 2,
         )
         new_zoo.update_weather()
         return new_zoo
 
     def add_exhibit_validator(self, postData):
         pass
-
-    
 
     #change_ticket_price_validator(self, postData)
         
@@ -381,7 +380,7 @@ class Habitat(models.Model):
     def add_animal(self, breed, name):
         num_animals = self.inhabitants.count()
         if num_animals < self.capacity:
-            new_animal = Animal.objects.create(self, breed, name)
+            new_animal = Animal.objects.create_animal(self, breed, name)
             new_animal.location = (num_animals +1)
             self.inhabitants.add(new_animal)
         else:
@@ -394,22 +393,25 @@ class AnimalManager(models.Manager):
     
     ## CREATE NEW ANIMAL
     def create_animal(self, habitat, breed, name):
-        health = set_health(self)
-        happiness = set_happiness(self)
-        lifespan = set_lifespan(self, breed)
-        age = set_age(self, breed, lifespan)
-        description = set_description(self, breed)
+        health = random.randint(60,95)
+        happiness = random.randint(60,95)
+        animal_prefs = animals[breed] #a dictionary of animal prefs
+        min = animal_prefs["lifespan"][0]
+        max = animal_prefs["lifespan"][1]
+        lifespan = random.randint(min, max)
+        age = random.randint(1,(lifespan//2))
+        description = animals[breed]["description"]
         new_animal = self.create(
             age = age,
             name = name,
             health= health,
             happiness = happiness,
+            habitat = habitat,
             breed = breed,
             lifespan = lifespan,
             popularity = animals[breed]["popularity"],
             size = animals[breed]["size"]
         )
-        new_animal.set_habitat(self, breed)
         return new_animal
 
 
@@ -421,18 +423,18 @@ class Animal(models.Model):
     happiness = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     breed = models.CharField(max_length=55, choices=(
         ('grizzly_bear','grizzly_bear'),
-        ('wolves','wolves'),
-        ('owls','owls'),
+        ('wolf','wolf'),
+        ('owl','owl'),
         ('giraffe','giraffe'),
         ('lion','lion'),
         ('rhino','rhino'),
         ('african_elephant','african_elephant'),
         ('polar_bear','polar_bear'),
         ('arctic_fox','arctic_fox'),
-        ('penguins','penguins'),
+        ('penguin','penguin'),
         ('tiger','tiger'),
         ('orangutan','orangutan'),
-        ('fruit_bats','fruit_bats'),
+        ('fruit_bat','fruit_bat'),
         ('asian_elephant','asian_elephant'),
     ))
     lifespan =  models.PositiveSmallIntegerField()
@@ -448,31 +450,6 @@ class Animal(models.Model):
     def attractiveness(self):
         attractiveness = int((self.health + self.happiness)/2)*(self.popularity/100)
         return attractiveness # a number between 0 and 100
-        
-# ANIMAL INITAILIATIONS
-    def set_age(self, breed, lifespan):
-        age = random.randint(1,(lifespan/2))
-        return age
-
-    def set_health(self):
-        health = random.randint(60,95)
-        return health
-    
-    def set_happiness(self):
-        happiness = random.randint(60,95)
-        return happiness
-    
-    def set_habitat(self, habitat):
-        self.habitat = habitat
-        self.save()
-        return self
-
-    def set_lifespan(self, breed):
-        animal_prefs = animal[breed] #a dictionary of animal prefs
-        min = animal_prefs["lifespan"][0]
-        max = animal_prefs["lifespan"][1]
-        lifespan = random.randint(min, max)
-        return lifespan
 
 #DAY POST
     def day_start(self):

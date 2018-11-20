@@ -20,30 +20,34 @@
             $("#close_rules").click(function(){
                 $(".rules").hide();
             });
+            $("#daily_log").click(function(){
+                $(".daily_log").toggle();
+            });
+            $("#close_daily_log").click(function(){
+                $(".daily_log").hide();
+            })
         });
         </script>
     </head>
     <body>
         {% block nav %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand">Zoo</a>
+            <a class="navbar-brand">{{user.first_name}}</a>
             <!-- <img src="" alt="titleimg"> -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/zoo/">Your Zoo<span class="sr-only">(current)</span></a> 
+                    <a class="nav-link" href="/zoo/1">Your Zoo</a> 
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link">{{user.username}}<span class="sr-only">(current)</span></a> 
+                    <a class="nav-link">{{user.username}}</a> 
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link">{{user.money}} ZooCash<span class="sr-only">(current)</span></a> 
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link">Day {{user.day}}<span class="sr-only">(current)</span></a> 
+                    <a class="nav-link">{{user.money}} ZooCash</a> 
                 </li>
             </ul>
+            <a id="daily_log" class="nav-link">Day {{user.day}}</a> 
             <a id="rules" style="color: black;" class="nav-item nav-link">Rules</a>
-            <a style="color: black;" href="/logoff" class="nav-item nav-link">Log off</a>
+            <a style="color: black;" href="/logout" class="nav-item nav-link">Log out</a>
         </nav>
         {% endblock nav %}
         {% block rules %}
@@ -53,6 +57,13 @@
             <button id="close_rules">Close</button>
         </div>
         {% endblock rules %}
+        {% block daily_log %}
+        <div class="daily_log" style="border: 2px solid black; display: none; position: fixed; background-color: green;">
+            <h1>Daily Log!</h1>
+            <p>Insert daily log here!</p>
+            <button id="close_daily_log">Close</button>
+        </div>
+        {% endblock daily_log %}
         <div class="main">
             {% block main %}
             <p>Main Content goes here!</p>

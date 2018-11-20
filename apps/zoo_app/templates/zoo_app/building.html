@@ -14,7 +14,7 @@
         {% for animal in this_building.inhabitants.all %}
         <tr>
             <td>{{animal.name}}</td>
-            <td>{{animal.breed.name}}</td>
+            <td>{{animal.breed}}</td>
             <td>
                 {% for food in animal.diet.all %}
                 <form action="/buy_food/{{animal.id}}">

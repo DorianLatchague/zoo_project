@@ -27,7 +27,7 @@ def animal_store(request, building_id):
     user = Users.objects.get(id=request.session['id'])
     context={
         "user" : user,
-        "this_building" : Habitats.objects.get(id=building_id),
+        "this_building" : Habitat.objects.get(id=building_id),
     }
     return render(request, 'zoo_app/animal_store.html', context)
 
@@ -35,7 +35,7 @@ def building(request, building_id):
     user = Users.objects.get(id=request.session['id'])
     context={
         "user" : user,
-        "this_building" : Habitats.objects.get(id=building_id),
+        "this_building" : Habitat.objects.get(id=building_id),
     }
     return render(request, 'zoo_app/building.html', context)
 
@@ -56,9 +56,8 @@ def buy_building(request, id, location):
 def buy_animal(request, building_id):
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
-        Habitat.objects.animal_validator(request.POST)
         Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], request.POST['name'])
-    return redirect('/zoo/building/'+str(id))
+    return redirect('/zoo/building/'+str(building_id))
 def change_ticket_price(request, zoo_id):
     if request.method=="POST":
         Zoo.objects.change_ticket_price_validator(request.POST)
