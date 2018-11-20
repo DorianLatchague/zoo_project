@@ -2,6 +2,11 @@
 
 {% block main %}
 <h1>{{this_building.name}} Store</h1>
+{% if messages %}
+{% for message in messages %}
+{{message|safe}}
+{% endfor %}
+{% endif %}
 {% if this_building.climate == "arctic" %}
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}

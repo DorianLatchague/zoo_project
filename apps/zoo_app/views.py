@@ -22,10 +22,12 @@ def create_zoo(request):
 def creating_zoo(request):
     user = Users.objects.get(id=request.session['id'])
     if request.method == "POST":
-        zoo = Zoo.objects.create_zoo(user, str.capitalize(request.POST['name']))
-        return redirect('/zoo/'+str(zoo.id))
-    else:    
-        return redirect('/zoo/create_zoo')
+        if user.money < 35000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        else:
+            zoo = Zoo.objects.create_zoo(user, str.capitalize(request.POST['name']))
+            return redirect('/zoo/'+str(zoo.id))
+    return redirect('/zoo/create_zoo')
 
 def zoo(request, id):
     user = Users.objects.get(id=request.session['id'])
@@ -92,14 +94,21 @@ def daily_log(request):
 def buy_building(request, id, location):
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
-        zoo = Zoo.objects.get(id=int(id))
-        habitat = zoo.add_exhibit(request.POST['climate'], str.capitalize(request.POST['name']), int(location))
-    return redirect('/zoo/building/'+str(habitat.id))
+        if user.money < 6000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        else:
+            zoo = Zoo.objects.get(id=int(id))
+            habitat = zoo.add_exhibit(request.POST['climate'], str.capitalize(request.POST['name']), int(location))
+            return redirect('/zoo/building/'+str(habitat.id))
+    return redirect('/build_store/'+str(location))
 
 def buy_animal(request, building_id):
+    user = Users.objects.get(id=request.session['id'])
     if request.method=="POST":
-        user = Users.objects.get(id=request.session['id'])
-        Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], str.capitalize(request.POST['name']))
+        if user.money < 1200:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        else:
+            Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], str.capitalize(request.POST['name']))
     return redirect('/zoo/building/'+str(building_id))
 
 def change_ticket_price(request, zoo_id):
@@ -109,13 +118,16 @@ def change_ticket_price(request, zoo_id):
     return redirect('/zoo/manage')
 
 def buy_food(request, animal_id):
+    animal = Animal.objects.get(id=int(animal_id))
+    animal_habitat = animal.habitat.id
     if request.method=="POST":
-        animal = Animal.objects.get(id=int(animal_id))
-        message = animal.feed(request.POST['food'])
-        messages.success(request, message, extra_tags=animal.id)
-        animal_habitat = animal.habitat.id
-        return redirect('/zoo/building/'+str(animal_habitat))
-    return redirect('/zoo/')
+        user = Users.objects.get(id=request.session['id'])
+        if user.money < 80:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        else:
+            message = animal.feed(request.POST['food'])
+            messages.success(request, "<p style='color: green;'>"+message+"</p>", extra_tags=animal.id)
+    return redirect('/zoo/building/'+str(animal_habitat))
 
 def advance_day(request):
     request.session['daily_log'] = {}

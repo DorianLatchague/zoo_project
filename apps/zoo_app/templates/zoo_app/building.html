@@ -5,8 +5,13 @@
 .change();
 {% endblock script %}
 {% block main %}
-<h1 style="display: inline-block;">{{this_building.name}}</h1>
-<h1 style="float: right;">{{fullness}}/{{capacity}}</h1>
+<h1>{{this_building.name}}</h1>
+<h2>{{fullness}}/{{capacity}} Capacity</h2>
+{% if messages %}
+{% for message in messages %}
+{{message|safe}}
+{% endfor %}
+{% endif %}
 <table class="table">
     <thead class="thead-light">
         <tr>
@@ -15,9 +20,6 @@
             <th>Happiness</th>
             <th>Health</th>
             <th>Food choices</th>
-            {% if messages %}
-            <th>Message</th>
-            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -50,13 +52,6 @@
                     </script>
                 </form>
             </td>
-            <td>{% if messages %}
-                {% for message in messages %}
-                {% if message.extra_tags == animal.id %}
-                {{message}}
-                {% endif %}
-                {% endfor %}
-                {% endif %}</td>
             </tr>
         {% endfor %}
     </tbody>
