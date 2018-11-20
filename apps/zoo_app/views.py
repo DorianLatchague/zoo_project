@@ -98,7 +98,7 @@ def buy_building(request, id, location):
             messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
         else:
             zoo = Zoo.objects.get(id=int(id))
-            habitat = zoo.add_exhibit(request.POST['climate'], str.capitalize(request.POST['name']), int(location))
+            habitat = zoo.add_exhibit(request.POST['climate'], str(request.POST['name']), int(location))
             return redirect('/zoo/building/'+str(habitat.id))
     return redirect('/build_store/'+str(location))
 
@@ -108,7 +108,7 @@ def buy_animal(request, building_id):
         if user.money < 1200:
             messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
         else:
-            Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], str.capitalize(request.POST['name']))
+            Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], str(request.POST['name']))
     return redirect('/zoo/building/'+str(building_id))
 
 def change_ticket_price(request, zoo_id):

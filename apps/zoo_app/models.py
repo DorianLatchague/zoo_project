@@ -346,6 +346,7 @@ class Zoo(models.Model):
         
     #ADD EXHIBIT TO ZOO
     def add_exhibit(self, climate, name, location):
+        # if self.owner.moeny>habitats[climate]["price"]
         new_exhibit = Habitat.objects.create_habitat(self, climate, name, location)
         self.exhibits.add(new_exhibit)
         self.owner.money = self.owner.money - habitats[climate]["price"]
@@ -553,12 +554,12 @@ class Animal(models.Model):
         return self.feed_message(food, meal["taste"], meal["nutrition"])
     
     def feed_message(self, food, taste, nutrition):
-        pet = self.breed
-        messages = ""
+        pet = self.get_breed_display()
+        message = ""
         if taste ==5:
             message = "Your "+pet +" loves " +food+ "!"
         if taste ==4:
-            "Your "+pet +" really likes " +food+ "."
+            message = "Your "+pet +" really likes " +food+ "."
         if taste ==3:
             message = "Your "+pet +" likes " +food+ "."
         if taste ==2:

@@ -3,6 +3,7 @@ from django.db import models
 import re
 import bcrypt
 
+NAME_REGEX = re.compile(r'^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.-]+$')
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 PASSWORD_REGEX = re.compile(r'^[a-zA-Z0-9-!._]+$')
 class Usermanager(models.Manager):
@@ -15,11 +16,11 @@ class Usermanager(models.Manager):
                 errors['email'] = "This email is already in use."
         if len(postData["first_name"]) < 2:
             errors['first_name'] = "Your first name must be at least 2 characters long."
-        elif str.isalpha(postData["first_name"]) == False:
+        elif not NAME_REGEX.match(postData["first_name"]) == False:
             errors['first_name'] = "Your first name must contain only letters."
         if len(postData["last_name"]) < 2:
             errors['last_name'] = "Your last name must be at least 2 characters long."
-        elif str.isalpha(postData["last_name"]) == False:
+        elif not NAME_REGEX.match(postData["first_name"]) == False:
             errors['last_name'] = "Your last name must contain only letters."
         if len(postData["password"]) < 8:
             errors['password'] = "Your password must be at least 8 characters long."
