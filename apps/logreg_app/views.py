@@ -3,6 +3,7 @@ from .models import Users
 from django.contrib import messages
 import bcrypt
 import re
+from apps.zoo_app.models import Zoo
 def logreg(request):
     if 'id' in request.session:
         return redirect('/zoo/')
@@ -15,8 +16,15 @@ def logging_in(request):
                 messages.error(request, value, extra_tags=key)
             return redirect('/')
         else:
-            request.session['id'] = Users.objects.get(email=request.POST['log_email']).id
-            return redirect('/zoo/1')
+            user = Users.objects.get(email=request.POST['log_email'])
+            request.session['id'] = user.id
+            zoos = user.zoos
+            if user.zoos.count() == 0:
+                return redirect('/zoo/create_zoo')
+            if user.zoos.count() == 1:
+                zoo = Zoo.objects.get(owner=user)
+                return redirect('/zoo/'+str(zoo.id))
+            return redirect('/zoo')
     else: 
         return redirect('/')
 def registering(request):
@@ -30,7 +38,7 @@ def registering(request):
             pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
             info = Users.objects.create(first_name=str.capitalize(request.POST['first_name']), last_name=str.capitalize(request.POST['last_name']), email=request.POST['email'], password=pw_hash)
             request.session['id'] = info.id
-            return redirect('/zoo/1')
+            return redirect('/zoo/create_zoo')
     else: 
         return redirect('/')
 def edit(request, id):

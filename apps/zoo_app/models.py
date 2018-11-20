@@ -265,6 +265,8 @@ class ZooManager(models.Manager):
             weather = 2,
         )
         new_zoo.update_weather()
+        owner.money -= 20000
+        owner.save()
         return new_zoo
 
     def add_exhibit_validator(self, postData):
@@ -302,13 +304,16 @@ class Zoo(models.Model):
         return self
 
     def zoo_popularity(self):
-        exhibits = self.exhibits.all()
-        total = 0
-        for exhibit in exhibits:
-            total = total +exhibit.attractiveness()
-        total = total//self.exhibits.count() #total = number between 0 and 100
-         #takeintoaccountticketprice
-        return total
+        if self.exhibits.count() == 0:
+            return 0
+        else:
+            exhibits = self.exhibits.all()
+            total = 0
+            for exhibit in exhibits:
+                total = total +exhibit.attractiveness()
+            total = total//self.exhibits.count() #total = number between 0 and 100
+                #takeintoaccountticketprice
+            return total
     #change_ticket_price(self, price)
 
     #ADD EXHIBIT TO ZOO
@@ -316,17 +321,16 @@ class Zoo(models.Model):
         new_exhibit = Habitat.objects.create_habitat(self, climate, name, location)
         self.exhibits.add(new_exhibit)
         self.owner.money = self.owner.money - habitats[climate]["price"]
+        self.owner.save()
         return self
 
     def advance_day(self):
         all_exhibits = self.exhibits.all()
-        print("The weather is " + str(self.weather))
         for exhibit in all_exhibits:
             for animal in exhibit.inhabitants.all():
                 animal.day_end()
                 animal.save()
         self.update_weather()
-        print("The weather is "+ str(self.weather))
         self.ticket_price = self.tomorrows_ticket_price
         self.save()
         for exhibit in all_exhibits:
@@ -335,7 +339,7 @@ class Zoo(models.Model):
                 animal.save()
         # update_events(self)
         daily_visitors = self.zoo_popularity() * 4
-        return daily_visitors
+        return {"daily_visitors": daily_visitors, "weather": self.get_weather_display(),}
 
 ##HABITAT MANAGER
 class HabitatManager(models.Manager):
@@ -377,13 +381,16 @@ class Habitat(models.Model):
 #HABITAT METHODS
     def attractiveness(self):
         attractiveness = habitats[self.climate]["popularity"]
-        animals = self.inhabitants.all()
-        total =0
-        for animal in animals:
-            total=total +animal.attractiveness()
-        total = total//self.inhabitants.count()
-        total = total*attractiveness/100
-        return attractiveness #returns a 1-100 number
+        if self.inhabitants.count()==0:
+            return 0
+        else:
+            animals = self.inhabitants.all()
+            total =0
+            for animal in animals:
+                total=total +animal.attractiveness()
+            total = total//self.inhabitants.count()
+            total = total*attractiveness/100
+            return attractiveness #returns a 1-100 number
 
 #ADD ANIMAL TO HABITAT
     def add_animal(self, breed, name):

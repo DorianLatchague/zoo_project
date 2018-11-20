@@ -1,0 +1,10 @@
+{% extends 'zoo_app/base.html' %}
+
+{% block main %}
+<ul>
+{% for zoo in zoos %}
+    <a href="/zoo/{{zoo.id}}"><li>Zoo ID: {{zoo.id}}, Zoo Name: {{zoo.name}}</li></a>
+{% endfor %}
+</ul>
+<a href="/zoo/create_zoo">Create a Zoo! (Price: 20000 ZooCash)</a>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'zoo_app/base.html' %}
+
+{% block main %}
+<h1>Welcome to your Daily Log!</h1>
+{% if "daily_log" in request.session %}
+{% for key, value in request.session.daily_log.items %}
+<h1>{{value.name}}</h1>
+<p>Your zoo sold {{value.daily_visitors}} tickets and earned you {{value.daily_money}} ZooCash.</p>
+<p>The weather today is {{value.weather}}.</p>
+<p>The ticket price today is {{value.ticket_price}}.</p>
+{% endfor %}
+{% else %}
+<p>You do not have a daily log yet!</p>
+{% endif %}
+{% endblock %}
