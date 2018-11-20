@@ -3,9 +3,15 @@
 {% block main %}
 <h1>Create a Zoo</h1>
 <p>Creating a zoo costs 20,000 ZooCash</p>
+{% if messages %}
+{% for message in messages %}
+{{message|safe}}
+{% endfor %}
+{% endif %}
 <form action="/zoo/creating_zoo" method="post">
     {% csrf_token %}
     <input type="text" name="name">
     <button>Create</button>
 </form>
 {% endblock %}
+
