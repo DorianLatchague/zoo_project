@@ -311,11 +311,39 @@ class Zoo(models.Model):
             total = 0
             for exhibit in exhibits:
                 total = total +exhibit.attractiveness()
-            total = total//self.exhibits.count() #total = number between 0 and 100
-                #takeintoaccountticketprice
-            return total
-    #change_ticket_price(self, price)
+            total = total//self.exhibits.count()
+            total = total * -3*self.ticket_price+115
+            if total<0:
+                total=0
+            return total  #total = number between 0 and 100
 
+    def change_ticket_price(self, price):
+        self.tomorrows_ticket_price = price
+        self.save()
+        return self
+    
+    def average_happiness(self)
+        exhibits = self.exhibits.all()
+        all_animals = 0
+        total_happiness = 0
+        for exhibit in exhibits:
+            all_animals = animals + exhibit.inhabitants.count()
+            for animal in all_animals:
+                total_happiness = animal.happiness
+        average_happiness = total_happines//all_animals
+        return average_happiness
+ 
+    def average_health(self)
+        exhibits = self.exhibits.all()
+        all_animals = 0
+        total_health = 0
+        for exhibit in exhibits:
+            all_animals = animals + exhibit.inhabitants.count()
+            for animal in all_animals:
+                total_health = animal.health
+        average_health = total_health//all_animals
+        return average_health
+        
     #ADD EXHIBIT TO ZOO
     def add_exhibit(self, climate, name, location):
         new_exhibit = Habitat.objects.create_habitat(self, climate, name, location)
@@ -338,7 +366,7 @@ class Zoo(models.Model):
                 animal.day_start()
                 animal.save()
         # update_events(self)
-        daily_visitors = self.zoo_popularity() * 4
+        daily_visitors = self.zoo_popularity() * self.exhibit.count()
         return {"daily_visitors": daily_visitors, "weather": self.get_weather_display(),}
 
 ##HABITAT MANAGER
@@ -385,12 +413,19 @@ class Habitat(models.Model):
             return 0
         else:
             animals = self.inhabitants.all()
-            total =0
+            total = 0
             for animal in animals:
-                total=total +animal.attractiveness()
+                total=total + animal.attractiveness()
             total = total//self.inhabitants.count()
             total = total*attractiveness/100
             return attractiveness #returns a 1-100 number
+
+    def how_full(self):
+        all_animals = self.inhabitants.all()
+        fullness = 0
+        for inhabitant in inhabitants:
+            fullness = fullness + inhabitant.size
+        return fullness
 
 #ADD ANIMAL TO HABITAT
     def add_animal(self, breed, name):
@@ -405,9 +440,9 @@ class Habitat(models.Model):
             self.zoo.owner.save()
             new_animal.location = (num_animals +1)
             self.inhabitants.add(new_animal)
+            return self
         else:
-            #send an error
-            pass
+            return False
 
 
 #### ANIMAL MANAGER
@@ -476,10 +511,34 @@ class Animal(models.Model):
 #DAY POST
     def day_start(self):
         self.happiness = self.happiness + animals[self.breed]["weather_prefs"][self.habitat.zoo.get_weather_display()]
+        self.health = self.health - random.randint(2,5)
+        self.happiness = self.happiness - random.randint(2,5)
+        self.validate_health().validate_happiness()
+        self.save()
         return self
 
     def day_end(self): #animal.advance_day
         self.happiness = self.happiness - animals[self.breed]["weather_prefs"][self.habitat.zoo.get_weather_display()]
+        self.validate_health().validate_happiness()
+        self.save()
+        return self
+
+    def validate_health(self)
+        if self.health>100:
+            self.health=100
+        if self.health<1:
+            #add death event
+            self.health=1
+        self.save()
+        return self
+
+    def validate_happiness(self)
+        if self.happiness>100:
+            self.happiness=100
+        if self.happiness<1:
+            #add death event
+            self.happiness=1
+        self.save()
         return self
 
 #FEED POST
@@ -487,10 +546,54 @@ class Animal(models.Model):
         meal = animals[self.breed]["diet"][food]
         self.happiness = self.happiness + meal["taste"]
         self.health = self.health + meal["nutrition"]
+        self.validate_health().validate_happiness()
         self.save()
         self.habitat.zoo.owner.money = self.habitat.zoo.owner.money - meal["price"]
         self.habitat.zoo.owner.save()
-        return self
+        return self.feed_message(food, meal["taste"], meal["nutrition"])
+    
+    def feed_message(food, taste, nutrition):
+        pet = self.breed
+        messages = ""
+        if taste ==5:
+            message = "Your "+pet +" loves " +food+ "!"
+        if taste ==4:
+            "Your "+pet +" really likes this " +food+ "."
+        if taste ==3:
+            message = "Your "+pet +" likes this " +food+ "."
+        if taste ==2:
+            message = "Your "+pet +" is ok with this " +food+ "."
+        if taste ==1:
+            message = "Your "+pet +" tolerates this " +food+ "."
+        if taste ==0:
+            message = "Your "+pet +" doesn't prefer this " +food+ "."
+        if taste ==-1:
+            message = "Your "+pet +" dislikes this " +food+ "."
+        if taste ==-2:
+            message = "Your "+pet +" dislikes this " +food+ "."
+        if taste ==-3:
+            message = "Your "+pet +" really dislikes this " +food+ "."
+        if taste ==-4:
+            message = "Your "+pet +" really dislikes this " +food+ "."
+        if taste ==-5:
+            message = "Your "+pet +" hates this " +food+ "!"
 
+        if nutrition >3
+            message = message + " It keeps them extremely healthy!"
+        if nutrition ==3 or nutrition == 4 
+            message = message + " It's good for their health."
+        if nutrition ==1 or nutrition ==2:
+            message = message + " It is a little healthy for them."
+        if nutrition ==0
+            message = message + " It's had no effect on their health."
+        if nutrition ==-1 or nutrition ==-2
+            message = message + " It's not very good for them."
+        if nutrition ==-3 or nutrition ==-4
+            message = message + " It's upset their stomach.:("
+        if nutrition ==-5
+            message = message + " It has made them sick!"
+        return message
 
-##Emily's Addition
+    def description(self)
+        description = animals[self.breed]["description"]
+        return description
