@@ -420,6 +420,13 @@ class Habitat(models.Model):
             total = total*attractiveness/100
             return attractiveness #returns a 1-100 number
 
+    def how_full(self):
+        all_animals = self.inhabitants.all()
+        fullness = 0
+        for inhabitant in inhabitants:
+            fullness = fullness + inhabitant.size
+        return fullness
+
 #ADD ANIMAL TO HABITAT
     def add_animal(self, breed, name):
         num_animals = self.inhabitants.count()
