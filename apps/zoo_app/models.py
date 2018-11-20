@@ -270,7 +270,7 @@ class ZooManager(models.Manager):
     def add_exhibit_validator(self, postData):
         pass
 
-    #change_ticket_price_validator(self, postData)
+    #change_ticket_price_validator(self, postData):
         
 ## ZOO CLASS
 class Zoo(models.Model):
@@ -305,8 +305,11 @@ class Zoo(models.Model):
         exhibits = self.exhibit.all()
         total = 0
         for exhibit in exhibits:
-            total = total +(exhibit.attraciveness()*100)
-        return total/self.exhibit.count() #takeintoaccountticketprice
+            total = total +exhibit.attractiveness()
+        total = total//self.exhibit.count()
+
+        
+         #takeintoaccountticketprice
 
     #change_ticket_price(self, price)
 
@@ -314,6 +317,7 @@ class Zoo(models.Model):
     def add_exhibit(self, climate, name, location):
         new_exhibit = Habitat.objects.create_habitat(self, climate, name, location)
         self.exhibits.add(new_exhibit)
+        self.owner.money = self.owner.money - habitats[climate]["price"]
         return self
 
     def advance_day(self):
@@ -352,8 +356,6 @@ class HabitatManager(models.Manager):
         )
         return new_habitat
 
-
-
 ## HABITAT CLASS
 class Habitat(models.Model):
     name = models.CharField(max_length=255)
@@ -370,21 +372,31 @@ class Habitat(models.Model):
     #inhabitants
 
 #HABITAT METHODS
-    def attractiveness(self, inhabitants, climate):
-        #based on:
-        habitats[climate]["popularity"]
-        self.inhabitants.attractiveness
-        return attractiveness
+    def attractiveness(self):
+        attractiveness = habitats[self.climate]["popularity"]
+        animals = self.inhabitants.all()
+        total =0
+        for animal in animals:
+            total=total +animal.attractiveness()
+        total = total//self.inhabitants.count()
+        total = total*attractiveness/100
+        return attractiveness #returns a 1-100 number
 
 #ADD ANIMAL TO HABITAT
     def add_animal(self, breed, name):
         num_animals = self.inhabitants.count()
-        if num_animals < self.capacity:
+        occupants = self.inhabitants.all()
+        how_full = 0
+        for animal in occupants:
+            how_full = how_full + animal.size
+        if animals[breed]["size"] <= (self.capacity-how_full):
             new_animal = Animal.objects.create_animal(self, breed, name)
+            self.zoo.owner.money = self.zoo.owner.money - animals[breed]["price"]
+            self.zoo.owner.save()
             new_animal.location = (num_animals +1)
             self.inhabitants.add(new_animal)
         else:
-            #message the user "You cannot!"
+            #send an error
             pass
 
 

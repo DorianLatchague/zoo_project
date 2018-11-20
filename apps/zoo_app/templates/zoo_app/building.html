@@ -16,14 +16,12 @@
             <td>{{animal.name}}</td>
             <td>{{animal.breed}}</td>
             <td>
-                {% for food in animal.diet.all %}
                 <form action="/buy_food/{{animal.id}}">
                     {% csrf_token %}
                     <input type="hidden" name="food" value="{{food.name}}">
-                    <button>{{food.name}}</button>
+                    <button>Feed</button>
                     <label>Price: {{food.price}}</label>
                 </form>
-                {% endfor %}
             </td>
         </tr>
         {% endfor %}

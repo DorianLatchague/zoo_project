@@ -13,122 +13,95 @@
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Polar Bear</label>
-    <select name="polar_bear">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="polar_bear">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Penguin</label>
-    <select name="penguin">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="penguin">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 {% elif this_building.climate == "savanna" %}
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Lion</label>
-    <select name="lion">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="lion">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Rhino</label>
-    <select name="rhino">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="rhino">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Giraffe</label>
-    <select name="giraffe">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="giraffe">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>African Elephant</label>
-    <select name="african_elephant">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="african_elephant">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 {% elif this_building.climate == "forest" %}
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Owl</label>
-    <select name="owl">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="owl">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Grizzly Bear</label>
-    <select name="grizzly_bear">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="grizzly_bear">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Wolf</label>
-    <select name="wolf">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="wolf">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 {% else %}
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Fruit Bat</label>
-    <select name="fruit_bat">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="fruit_bat">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Tiger</label>
-    <select name="tiger">
-        <option selected="selected">1</option>
-        <option>1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="tiger">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Orangutan</label>
-    <select name="orangutan">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="orangutan">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 <form action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
     <label>Asian Elephant</label>
-    <select name="asian_elephant">
-        <option selected="selected">1</option>
-        <option>2</option>
-    </select>
+    <input type="hidden" name="breed" value="asian_elephant">
+    <input name="name" type="text">
     <button>Buy</button>
 </form>
 {% endif %}
