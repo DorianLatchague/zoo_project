@@ -22,38 +22,38 @@
             <td>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <label>Leaves</label>
+                    <label>Feed Leaves</label>
                     <input type="hidden" name="food" value="leaves">
-                    <button>Feed</button>
+                    <button>100 ZooCash</button>
                 </form>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <label>Grasses</label>
+                    <label>Feed Grasses</label>
                     <input type="hidden" name="food" value="grasses">
-                    <button>Feed</button>
+                    <button>80 ZooCash</button>
                 </form>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <label>Fruit</label>
+                    <label>Feed Fruit</label>
                     <input type="hidden" name="food" value="fruit">
-                    <button>Feed</button>
+                    <button>120 ZooCash</button>
                 </form>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <label>Fish</label>
+                    <label>Feed Fish</label>
                     <input type="hidden" name="food" value="fish">
-                    <button>Feed</button>
+                    <button>160 ZooCash</button>
                 </form>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <label>Meat</label>
+                    <label>Feed Meat</label>
                     <input type="hidden" name="food" value="meat">
-                    <button>Feed</button>
+                    <button>140 ZooCash</button>
                 </form>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<a href="/zoo/animal_store/{{this_building.id}}">Visit your Store!</a>
+<a href="/zoo/animal_store/{{this_building.id}}">Buy some Animals!</a>
 {% endblock %}

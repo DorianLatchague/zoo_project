@@ -21,7 +21,7 @@ def create_zoo(request):
 def creating_zoo(request):
     user = Users.objects.get(id=request.session['id'])
     if request.method == "POST":
-        zoo = Zoo.objects.create_zoo(user, request.POST['name'])
+        zoo = Zoo.objects.create_zoo(user, str.capitalize(request.POST['name']))
         return redirect('/zoo/'+str(zoo.id))
     else:    
         return redirect('/zoo/create_zoo')
@@ -88,13 +88,13 @@ def buy_building(request, id, location):
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
         zoo = Zoo.objects.get(id=int(id))
-        zoo.add_exhibit(request.POST['climate'], request.POST['name'], int(location))
-    return redirect('/zoo/'+str(zoo.id))
+        habitat = zoo.add_exhibit(request.POST['climate'], str.capitalize(request.POST['name']), int(location))
+    return redirect('/zoo/building/'+str(habitat.id))
 
 def buy_animal(request, building_id):
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
-        Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], request.POST['name'])
+        Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], str.capitalize(request.POST['name']))
     return redirect('/zoo/building/'+str(building_id))
 
 def change_ticket_price(request, zoo_id):

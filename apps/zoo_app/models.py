@@ -322,7 +322,7 @@ class Zoo(models.Model):
         self.exhibits.add(new_exhibit)
         self.owner.money = self.owner.money - habitats[climate]["price"]
         self.owner.save()
-        return self
+        return new_exhibit
 
     def advance_day(self):
         all_exhibits = self.exhibits.all()
