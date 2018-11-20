@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from apps.logreg_app.models import Users
+from django.contrib import messages
 
 def zoo_list(request):
     user = Users.objects.get(id=request.session['id'])
@@ -62,10 +63,14 @@ def building(request, building_id):
     user = Users.objects.get(id=request.session['id'])
     habitat = Habitat.objects.get(id=building_id)
     zoo = habitat.zoo
+    capacity = habitat.capacity
+    fullness = habitat.how_full()
     context={
         "user" : user,
         "zoo" : zoo,
         "this_building" : habitat,
+        "capacity" : capacity,
+        "fullness" : fullness,
     }
     return render(request, 'zoo_app/building.html', context)
 
@@ -106,7 +111,8 @@ def change_ticket_price(request, zoo_id):
 def buy_food(request, animal_id):
     if request.method=="POST":
         animal = Animal.objects.get(id=int(animal_id))
-        animal.feed(request.POST['food'])
+        message = animal.feed(request.POST['food'])
+        messages.success(request, message)
         animal_habitat = animal.habitat.id
         return redirect('/zoo/building/'+str(animal_habitat))
     return redirect('/zoo/1')

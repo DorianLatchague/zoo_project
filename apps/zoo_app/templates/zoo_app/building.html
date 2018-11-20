@@ -1,9 +1,20 @@
 {% extends 'zoo_app/base.html' %}
 
+{% block script %}
+$( "select" ).change(function () {
+    var str = ""
+    $( "select option:selected" ).each(function() {
+        str += $(this).attr('price')+" ZooCash";
+    });
+    $( "button" ).text( str );
+})
+.change();
+{% endblock script %}
 {% block main %}
-<h1>{{this_building.name}}</h1>
-<table>
-    <thead>
+<h1 style="display: inline-block;">{{this_building.name}}</h1>
+<h1 style="float: right;">{{total.size}}/{{capacity}}</h1>
+<table class="table">
+    <thead class="thead-light">
         <tr>
             <th>Name</th>
             <th>Breed</th>
@@ -15,40 +26,22 @@
     <tbody>
         {% for animal in this_building.inhabitants.all %}
         <tr>
-            <td>{{animal.name}}</td>
+            <td class="animal_info" style="cursor: pointer; color: green; text-decoration: underline;" data-toggle="popover" title="Animal Information" data-content="Name: {{animal.name}}, Breed: {{animal.get_breed_display}}, Description: {{animal.description}}, Size: {{animal.size}}">{{animal.name}}</td>
             <td>{{animal.get_breed_display}}</td>
             <td>{{animal.happiness}}</td>
             <td>{{animal.health}}</td>
             <td>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <label>Feed Leaves</label>
-                    <input type="hidden" name="food" value="leaves">
-                    <button>100 ZooCash</button>
-                </form>
-                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
-                    {% csrf_token %}
-                    <label>Feed Grasses</label>
-                    <input type="hidden" name="food" value="grasses">
-                    <button>80 ZooCash</button>
-                </form>
-                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
-                    {% csrf_token %}
-                    <label>Feed Fruit</label>
-                    <input type="hidden" name="food" value="fruit">
-                    <button>120 ZooCash</button>
-                </form>
-                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
-                    {% csrf_token %}
-                    <label>Feed Fish</label>
-                    <input type="hidden" name="food" value="fish">
-                    <button>160 ZooCash</button>
-                </form>
-                <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
-                    {% csrf_token %}
-                    <label>Feed Meat</label>
-                    <input type="hidden" name="food" value="meat">
-                    <button>140 ZooCash</button>
+                    <label>Feed</label>
+                    <select class="select" name="food">
+                        <option value="grasses" price="80">Grasses</option>
+                        <option value="leaves" price="100">Leaves</option>
+                        <option value="fruit" price="120">Fruits</option>
+                        <option value="meat" price="140">Meat</option>
+                        <option value="fish" price="160">Fish</option>
+                    </select>
+                    <button class="price"></button>
                 </form>
             </td>
         </tr>

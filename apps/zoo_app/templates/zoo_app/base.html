@@ -30,6 +30,12 @@
             $('[data-toggle=confirmation]').confirmation({rootSelector: '[data-toggle=confirmation]',
             // other options
             });
+            $(function () {
+                $('.animal_info').popover({
+                })
+            })
+            {% block script %}
+            {% endblock script %}
         });
         </script>
     </head>
@@ -40,13 +46,12 @@
             <!-- <img src="" alt="titleimg"> -->
             <div class="mr-auto">
                 <a style="display: inline; color: black;" class="nav-link" href="/zoo/{{zoo.id}}">Current Zoo</a>
-                <a style="display: inline;" class="nav-link">{{user.username}}</a>
-                <a style="display: inline;" id="daily_log" class="nav-link">Day {{user.day}}</a> 
+                <a style="cursor: pointer; display: inline;" id="daily_log" class="nav-link">Day {{user.day}}</a> 
                 <a style="display: inline;" class="nav-link">{{user.money}} ZooCash</a>
             </div>
             <a  style="color: black;" class="nav-link" href="/zoo">Your Zoos</a> 
-            <a style="color: black;" class="nav-link" data-toggle="confirmation" data-btn-ok-label="Continue" data-btn-ok-class="btn-outline-success" data-btn-cancel-label="Go Back" data-btn-cancel-class="btn-outline-danger" data-title="Are you sure?" data-content="Pressing 'Continue' will move you on to the next day." href="/zoo/advance_day">Next Day</a>
-            <a id="rules" style="color: black;" class="nav-item nav-link">Rules</a>
+            <a style="color: black; cursor: pointer;" class="nav-link" data-toggle="confirmation" data-btn-ok-label="Continue" data-btn-ok-class="btn-outline-success" data-btn-cancel-label="Go Back" data-btn-cancel-class="btn-outline-danger" data-title="Are you sure?" data-content="Pressing 'Continue' will move you on to the next day." href="/zoo/advance_day">Next Day</a>
+            <a id="rules" style="color: black; cursor: pointer;" class="nav-item nav-link">Rules</a>
             <a style="color: black;" href="/logout" class="nav-item nav-link">Log out</a>
         </nav>
         {% endblock nav %}
