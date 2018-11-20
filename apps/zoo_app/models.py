@@ -491,3 +491,6 @@ class Animal(models.Model):
         self.habitat.zoo.owner.money = self.habitat.zoo.owner.money - meal["price"]
         self.habitat.zoo.owner.save()
         return self
+
+
+##Emily's Addition
