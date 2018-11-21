@@ -9,11 +9,19 @@
     </div>
     {% for exhibit in exhibits %}
         {% if exhibit.1 == "empty" %}
+        {% if zoo.owner.id == user.id %}
         <a href="/zoo/{{zoo.id}}/build_store/{{exhibit.0}}"><img src="{% static "zoo_app/img/empty.jpg" %}" alt="no_building" style="width: 100px; height: 100px; border: 2px solid black;"></a>
+        {% else %}
+        <img src="{% static "zoo_app/img/empty.jpg" %}" alt="no_building" style="width: 100px; height: 100px; border: 2px solid black;">
+        {% endif %}
         {% else %}
         <a href="/zoo/building/{{exhibit.1.id}}"><img src="{% static "zoo_app/img/"|add:exhibit.1.climate|add:".jpg" %}" alt="{{exhibit.1.climate}}" style="width: 100px; height: 100px; border: 2px solid black;"></a>
         {% endif %}
     {% endfor %}
-<a href="/zoo/{{zoo.id}}/manage"><img src="{% static "zoo_app/img/entrance.png" %}" class="entrance" style=" margin-left: 250px; height: 100px; width: auto; margin-top: 15px;"></a>
-</div>
+    {% if zoo.owner.id == user.id %}
+    <a href="/zoo/{{zoo.id}}/manage"><img src="{% static "zoo_app/img/entrance.png" %}" class="entrance" style=" margin-left: 250px; height: 100px; width: auto; margin-top: 15px;"></a>
+    </div>
+    {% else %}
+    <img src="{% static "zoo_app/img/entrance.png" %}" class="entrance" style=" margin-left: 250px; height: 100px; width: auto; margin-top: 15px;">
+    {% endif %}
 {% endblock %}

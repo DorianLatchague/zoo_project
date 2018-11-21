@@ -20,7 +20,9 @@
             <th>Happiness</th>
             <th>Health</th>
             <th>Size</th>
+            {% if this_building.zoo.owner.id == user.id %}
             <th>Food choices</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -31,6 +33,7 @@
             <td>{{animal.happiness}}</td>
             <td>{{animal.health}}</td>
             <td>{{animal.size}}</td>
+            {% if this_building.zoo.owner.id == user.id %}
             <td>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
@@ -54,9 +57,12 @@
                     </script>
                 </form>
             </td>
+            {% endif %}
             </tr>
         {% endfor %}
     </tbody>
 </table>
+{% if this_building.owner.id == user.id %}
 <a class="btn btn-outline-primary" href="/zoo/animal_store/{{this_building.id}}">Buy some Animals!</a>
+{% endif %}
 {% endblock %}
