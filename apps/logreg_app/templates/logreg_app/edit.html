@@ -13,14 +13,26 @@
                 <a class="navbar-brand">Edit My Account</a>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/quotes">Home<span class="sr-only">(current)</span></a>                        
+                        <a class="nav-link" href="/zoo">Back to your Zoos<span class="sr-only">(current)</span></a>                        
                     </li>
                 </ul>
-                <a style="color: black;" class="nav-item nav-link" href="/quotes">Back</a>
                 <a class="nav-item nav-link btn btn-outline-danger" href="/logout">Logout</a>
             </nav>
             <form action="/myaccount/{{user.id}}/edit" method="post">
                 {% csrf_token %}
+                <div class="input-group mb-3" style="margin-top: 10px;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Username:</span>
+                    </div>
+                    <input name="username" type="text" class="form-control" value="{{user.username}}">
+                </div>
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.extra_tags == "username"  %}
+                <p style="color: red">{{ message }}</p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">First Name:</span>

@@ -25,7 +25,7 @@ def creating_zoo(request):
         if user.money < 35000:
             messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
         else:
-            zoo = Zoo.objects.create_zoo(user, str.capitalize(request.POST['name']))
+            zoo = Zoo.objects.create_zoo(user, request.POST['name'])
             return redirect('/zoo/'+str(zoo.id))
     return redirect('/zoo/create_zoo')
 

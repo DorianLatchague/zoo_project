@@ -3,6 +3,7 @@ from django.db import models
 import re
 import bcrypt
 
+USERNAME_REGEX = re.compile(r'^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.-]+$')
 NAME_REGEX = re.compile(r'^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.-]+$')
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 PASSWORD_REGEX = re.compile(r'^[a-zA-Z0-9-!._]+$')
@@ -11,17 +12,20 @@ class Usermanager(models.Manager):
         errors = {}
         if not EMAIL_REGEX.match(postData["email"]):
             errors['email'] = "Your email is invalid."
-        else:
-            if Users.objects.filter(email=postData["email"]):
-                errors['email'] = "This email is already in use."
+        elif Users.objects.filter(email=postData["email"]):
+            errors['email'] = "This email is already in use."
+        if len(postData['username']) < 4:
+            errors['username'] = "Your username must be at least 4 characters long."
+        elif not USERNAME_REGEX.match(postData["username"]):
+            errors['username'] = "Your username is invalid."
         if len(postData["first_name"]) < 2:
             errors['first_name'] = "Your first name must be at least 2 characters long."
         elif not NAME_REGEX.match(postData["first_name"]):
-            errors['first_name'] = "Your first name must contain only letters."
+            errors['first_name'] = "Your first name is invalid."
         if len(postData["last_name"]) < 2:
             errors['last_name'] = "Your last name must be at least 2 characters long."
         elif not NAME_REGEX.match(postData["first_name"]):
-            errors['last_name'] = "Your last name must contain only letters."
+            errors['last_name'] = "Your last name is invalid."
         if len(postData["password"]) < 8:
             errors['password'] = "Your password must be at least 8 characters long."
         elif not PASSWORD_REGEX.match(postData["password"]):
@@ -42,9 +46,12 @@ class Usermanager(models.Manager):
         errors = {}
         if not EMAIL_REGEX.match(postData["email"]):
             errors['email'] = "Your email is invalid."
-        else:
-            if Users.objects.filter(email=postData["email"]).exclude(id=id):
+        elif Users.objects.filter(email=postData["email"]).exclude(id=id):
                 errors['email'] = "This email is already in use."
+        if len(postData['username']) < 4:
+            errors['username'] = "Your username must be at least 4 characters long."
+        elif not USERNAME_REGEX.match(postData["username"]):
+            errors['username'] = "Your username is invalid."
         if len(postData["first_name"]) < 2:
             errors['first_name'] = "Your first name must be at least 2 characters long."
         elif str.isalpha(postData["first_name"]) == False:
@@ -56,6 +63,7 @@ class Usermanager(models.Manager):
         return errors
 
 class Users(models.Model):
+    username = models.CharField(max_length=55)
     email = models.CharField(max_length=55)
     first_name = models.CharField(max_length=55)
     last_name = models.CharField(max_length=55)
