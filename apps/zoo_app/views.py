@@ -56,11 +56,11 @@ def build_store(request, id, location):
     if not 'id' in request.session:
         return redirect('/')
     else:
-        if 'id' in request.session != id:
+        user = Users.objects.get(id=request.session['id'])
+        zoo = user.zoos.get(id=int(id))
+        if user.id != zoo.owner.id:
             return redirect('/zoo/'+str(id))
         else:
-            user = Users.objects.get(id=request.session['id'])
-            zoo = user.zoos.get(id=int(id))
             context={
                 "user" : user,
                 "zoo" : zoo,
