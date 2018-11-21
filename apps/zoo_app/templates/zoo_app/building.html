@@ -37,15 +37,19 @@
             <td>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}
-                    <label>Feed</label>
-                    <select class="select{{animal.id}}" name="food">
-                        <option value="grasses" price="80">Grasses</option>
-                        <option value="leaves" price="100">Leaves</option>
-                        <option value="fruit" price="120">Fruits</option>
-                        <option value="meat" price="140">Meat</option>
-                        <option value="fish" price="160">Fish</option>
-                    </select>
-                    <button class="price{{animal.id}}">80 ZooCash</button>
+                    <div>
+                        <select style="display: inline-block; width: 100px;" class="select{{animal.id}} form-control" name="food">
+                            <option value="grasses" price="80">Grasses</option>
+                            <option value="leaves" price="100">Leaves</option>
+                            <option value="fruit" price="120">Fruits</option>
+                            <option value="meat" price="140">Meat</option>
+                            <option value="fish" price="160">Fish</option>
+                        </select>
+                        <div style="display: inline-block;" class="input-group-append">
+                            <span class="input-group-text price{{animal.id}}" id="basic-addon1">80 ZooCash</span>
+                        </div>
+                        <button style="display: inline-block;" class="btn btn-outline-primary">Feed</button>
+                    </div>
                     <script>
                     $( ".select{{animal.id}}" ).change(function () {
                         var str = ""
