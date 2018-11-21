@@ -252,6 +252,8 @@ habitats = {
         "capacity": 12,
     },
 }
+events:{
+}
 
 #ZOO MANAGER
 class ZooManager(models.Manager):
@@ -302,6 +304,41 @@ class Zoo(models.Model):
         self.weather = weather
         self.save()
         return self
+
+    def get_random_animal(self):
+            all_animals = []
+            count = 0
+            all_exhibits = self.exhibits.all()
+            for exhibit in all_exhibits:
+                all_inhabitants=exhibit.inhabitants.all()
+                for inhabitant in all_inhabitants:
+                    all_animals.append(inhabitant)
+                    count = count + 1
+            index = random.randint(0,count-1)
+            random_animal = all_animals[index]
+            return random_animal
+    
+    def create_events(self):
+        event_no = random.randint(1,12)
+        if event_no ==3:
+            #escape!
+            escapee = self.get_random_animal()
+            resolution_day = self.owner.day+4
+            event_message = "Your "+ escapee.breed +", "+escapee.name +", has escaped from the zoo!!"
+            resolution_message = "Your "+ escapee.breed +", "+escapee.name +", has been found and returned to the zoo."
+            new_event = Event.objects.create(
+                zoo = self,
+                name = "animal_escape",
+                day = self.owner.day+1,
+                resolution_day = resolution_day,
+                event_data1=escapee.habitat.all()[0].location,
+                event_message = event_message,
+                resolution_message = resolution_message
+            )
+            new_event.affected_animals.add(escapee)
+            escapee.habitat.remove(escapee.habitat.all()[0])
+            return new_event.event_message
+        return False
 
     def zoo_popularity(self):
         if self.exhibits.count() == 0:
@@ -376,16 +413,19 @@ class Zoo(models.Model):
                 animal.day_start()
                 animal.age = animal.age+1
                 animal.save()
-                if animal.health == 0:
-                    dead = animal.die()
-                    message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of malnutrition."
-                    messages.append(message)
-                elif animal.happiness == 0:
-                    dead = animal.die()
-                    message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of sadness."
-                    messages.append(message)
+                death = animal.death_check()
+                if death != False:
+                    messages.append(death)
                 count = count + 1
-        # update_events(self)
+        new_event =self.create_events()
+        if new_event != False:
+            messages.append(new_event)
+        resolutions = self.events.all()
+        for resolution in resolutions:
+            if resolution.resolution_day == self.owner.day:
+                ending_event = resolution.resolve()
+                if ending_event!=False:
+                    messages.append(ending_event)
         messages.append("The average happiness of your animals is " + str(self.average_happiness())+".")
         messages.append("The average health of your animals is " + str(self.average_health())+".")
         factor = (self.average_happiness())*(self.average_health())//100
@@ -486,12 +526,12 @@ class AnimalManager(models.Manager):
             name = name,
             health= health,
             happiness = happiness,
-            habitat = habitat,
             breed = breed,
             lifespan = lifespan,
             popularity = animals[breed]["popularity"],
             size = animals[breed]["size"]
         )
+        new_animal.habitat.add(habitat)
         return new_animal
 
 
@@ -520,7 +560,7 @@ class Animal(models.Model):
     lifespan =  models.PositiveSmallIntegerField()
     popularity = models.PositiveSmallIntegerField()
     size = models.PositiveSmallIntegerField()
-    habitat = models.ForeignKey(Habitat, related_name = "inhabitants")
+    habitat = models.ManyToManyField(Habitat, related_name = "inhabitants")
     location = models.PositiveSmallIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -536,11 +576,11 @@ class Animal(models.Model):
             dead = self.die()
             message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of old age."
             return message
-        if self.health == 0:
+        elif self.health == 0:
             dead = self.die()
             message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of malnutrition."
             return message
-        if self.happiness == 0:
+        elif self.happiness == 0:
             dead = self.die()
             message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of sadness."
             return message
@@ -548,7 +588,7 @@ class Animal(models.Model):
             return False
 
     def die(self):
-        death = [self.breed, self.name]
+        death = [self.get_breed_display(), self.name]
         self.delete()
         return death
     
@@ -557,7 +597,7 @@ class Animal(models.Model):
 
 #DAY POST
     def day_start(self):
-        self.happiness = self.happiness + animals[self.breed]["weather_prefs"][self.habitat.zoo.get_weather_display()]
+        self.happiness = self.happiness + animals[self.breed]["weather_prefs"][self.habitat.all()[0].zoo.get_weather_display()]
         self.health = self.health - random.randint(2,5)
         self.happiness = self.happiness - random.randint(2,5)
         self.validate_health().validate_happiness()
@@ -565,7 +605,7 @@ class Animal(models.Model):
         return self
 
     def day_end(self): #animal.advance_day
-        self.happiness = self.happiness - animals[self.breed]["weather_prefs"][self.habitat.zoo.get_weather_display()]
+        self.happiness = self.happiness - animals[self.breed]["weather_prefs"][self.habitat.all()[0].zoo.get_weather_display()]
         self.validate_health().validate_happiness()
         self.save()
         return self
@@ -593,8 +633,8 @@ class Animal(models.Model):
         self.health = self.health + meal["nutrition"]
         self.validate_health().validate_happiness()
         self.save()
-        self.habitat.zoo.owner.money = self.habitat.zoo.owner.money - meal["price"]
-        self.habitat.zoo.owner.save()
+        self.habitat.all()[0].zoo.owner.money = self.habitat.all()[0].zoo.owner.money - meal["price"]
+        self.habitat.all()[0].zoo.owner.save()
         death = self.death_check()
         if death == False:
             return self.feed_message(food, meal["taste"], meal["nutrition"])
@@ -646,3 +686,43 @@ class Animal(models.Model):
     def description(self):
         description = animals[self.breed]["description"]
         return description
+
+###EVENTS
+
+class EventManager(models.Manager):
+    pass
+
+class Event(models.Model):
+    zoo = models.ForeignKey(Zoo, related_name="events")
+    name =  models.CharField(max_length=255, choices=(
+        ('animal_escape','animal escape'),
+        ('sick_animals','sick animals'),
+        ('fieldtrip','local school fieldtrip'),
+        ('donation','anonymous donation'),
+        ('birth','animal birth'),
+        ('fish_sale','fish are on sale'),
+        ('animal_attack','animal attack'),
+    ))
+    day = models.PositiveSmallIntegerField(null=True)
+    resolution_day = models.PositiveSmallIntegerField(null=True)
+    exhibits = models.ManyToManyField(Habitat, related_name = "events")
+    affected_animals = models.ManyToManyField(Animal, related_name = "events")
+    event_data1 = models.PositiveSmallIntegerField(null=True)
+    event_data2 = models.PositiveSmallIntegerField(null=True)
+    event_data3 = models.PositiveSmallIntegerField(null=True)
+    event_message = models.TextField()
+    resolution_message = models.TextField()
+    objects = EventManager()
+
+    def run(self):
+        #runs function and returns a message or false if no message
+        pass
+
+    def resolve(self):
+        if self.resolution_day == self.zoo.owner.day:
+            if self.name == "animal_escape":
+                escapee = self.affected_animals.all()[0]
+                escapee.habitat.add(Habitat.objects.filter(location = self.event_data1).filter(zoo=self.zoo)[0])
+            message= self.resolution_message
+            return message
+        return False

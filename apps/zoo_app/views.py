@@ -155,7 +155,7 @@ def change_ticket_price(request, zoo_id):
 
 def buy_food(request, animal_id):
     animal = Animal.objects.get(id=int(animal_id))
-    animal_habitat = animal.habitat.id
+    animal_habitat = animal.habitat.all()[0].id
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
         if request.POST['food'] == "grasses" and user.money < 80:
