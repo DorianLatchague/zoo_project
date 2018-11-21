@@ -252,6 +252,8 @@ habitats = {
         "capacity": 12,
     },
 }
+events:{
+}
 
 #ZOO MANAGER
 class ZooManager(models.Manager):
@@ -302,6 +304,27 @@ class Zoo(models.Model):
         self.weather = weather
         self.save()
         return self
+
+    def get_random_animal(self):
+            all_animals = []
+            count = 0
+            all_exhibits = self.exhibits.all()
+            for exhibit in all_exhibits:
+                all_inhabitants=exhibit.inhabitants.all()
+                for inhabitant in all_inhabitants:
+                    all_animals.append(inhabitant)
+                    count = count + 1
+            index = random.randint(0,count-1)
+            random_animal = all_animals[index]
+            return random_animal
+
+    # def event_resolutions(self):
+    #     all_events = self.events.all()
+    #     messages=[]
+    #     for event in all_events:
+    #         if event.resolution_day == self.user.day:
+    #             event.resolve()
+    #     return messages
 
     def zoo_popularity(self):
         if self.exhibits.count() == 0:
@@ -376,16 +399,13 @@ class Zoo(models.Model):
                 animal.day_start()
                 animal.age = animal.age+1
                 animal.save()
-                if animal.health == 0:
-                    dead = animal.die()
-                    message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of malnutrition."
-                    messages.append(message)
-                elif animal.happiness == 0:
-                    dead = animal.die()
-                    message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of sadness."
-                    messages.append(message)
+                death = death_check(animal)
+                if death != False:
+                    messages.append(death)
                 count = count + 1
-        # update_events(self)
+        # for event in self.run_events()
+        #     messages.append(event)
+        # self.event_resolutions()
         messages.append("The average happiness of your animals is " + str(self.average_happiness())+".")
         messages.append("The average health of your animals is " + str(self.average_health())+".")
         factor = (self.average_happiness())*(self.average_health())//100
@@ -520,7 +540,7 @@ class Animal(models.Model):
     lifespan =  models.PositiveSmallIntegerField()
     popularity = models.PositiveSmallIntegerField()
     size = models.PositiveSmallIntegerField()
-    habitat = models.ForeignKey(Habitat, related_name = "inhabitants")
+    habitat = models.ManyToManyField(Habitat, related_name = "inhabitants")
     location = models.PositiveSmallIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -536,11 +556,11 @@ class Animal(models.Model):
             dead = self.die()
             message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of old age."
             return message
-        if self.health == 0:
+        elif self.health == 0:
             dead = self.die()
             message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of malnutrition."
             return message
-        if self.happiness == 0:
+        elif self.happiness == 0:
             dead = self.die()
             message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of sadness."
             return message
@@ -646,3 +666,64 @@ class Animal(models.Model):
     def description(self):
         description = animals[self.breed]["description"]
         return description
+
+###EVENTS
+
+class EventManager(models.Manager):
+    pass
+
+class Event(models.Model):
+    zoo = models.ForeignKey(Zoo, related_name="events")
+    name =  models.CharField(max_length=255)
+    day = models.PositiveSmallIntegerField(null=True)
+    resolution_day = models.PositiveSmallIntegerField(null=True)
+    exhibits = models.ManyToManyField(Habitat, related_name = "events")
+    affected_animals = models.ManyToManyField(Animal, related_name = "events")
+    event_data1 = models.PositiveSmallIntegerField(null=True)
+    event_data2 = models.PositiveSmallIntegerField(null=True)
+    event_data3 = models.PositiveSmallIntegerField(null=True)
+    event_message = models.TextField()
+    resolution_message = models.TextField()
+    objects = EventManager()
+
+    def escapee(self, zoo): #removes an animal from the zoo and stores it to add later
+        escapee = zoo.get_random_animal()
+        ###fix resoluation_day
+        resolution_day = 3
+        event_message = "Your "+ escapee.breed +", "+escapee.name +", has escaped from the zoo!!"
+        resolution_message = "Your "+ escapee.breed +", "+escapee.name +", has been found and returned to the zoo."
+        Event.objects.create(
+            zoo = zoo,
+            name = escapee.breed+ " Escape!",
+            day = zoo.owner.day,
+            resolution_day = resolution_day,
+            affected_animals = escapee,
+            event_message = event_message,
+            resolution_message = resolution_message
+        )
+        escapee.habitat.remove()
+        return self
+
+    def resolve(self):
+        all_events = self.zoo.events.all()
+        messages=[]
+        for event in all_events:
+            if self.resolution_day == self.zoo.user.day:
+                self.resolve()
+
+
+    # def run_events(self)
+        #break out - ticket sales got down and an animal gets deleted
+            #maybe the animal gets found
+         #--need to store name of event
+        # all_animals=
+        #escapee = 
+        #all the animals got a cold - animals are less healthy
+        #school field trip day - more ticket sales
+        #the zoo recived an anonymous donation from a mysterious benefactor
+        #an animal birth!
+        #fish is on sale today
+        #shortage of fish
+        #a visitor was eaten yesterday by a certain animal - that animals happiness goes to max, but ticket sales plummet for a day
+
+    # def run_event_resolutions(self):
