@@ -201,7 +201,7 @@ animals = {
             "meat":{"taste": 4,"nutrition": 5,"price": price["food"]["meat"]},
             "grasses":{"taste": -4,"nutrition": 0, "price": price["food"]["grasses"]},
             "leaves":{"taste": -5, "nutrition": -2, "price": price["food"]["leaves"]},
-            "fruit":{"taste": 50,"nutrition": 3, "price": price["food"]["fruit"]},
+            "fruit":{"taste": 5,"nutrition": 3, "price": price["food"]["fruit"]},
             "fish":{"taste": 5, "nutrition": 4, "price": price["food"]["fish"]} 
         },
         "lifespan":(1000,1250), #this is a tuple of min lifespan and max lifespan
@@ -429,7 +429,7 @@ class Zoo(models.Model):
         messages.append("The average happiness of your animals is " + str(self.average_happiness())+".")
         messages.append("The average health of your animals is " + str(self.average_health())+".")
         factor = (self.average_happiness())*(self.average_health())//100
-        daily_visitors = self.zoo_popularity() *factor *count//self.exhibits.count()
+        daily_visitors = self.zoo_popularity() *factor *count//self.exhibits.count()//100
         return {"daily_visitors": daily_visitors, "weather": self.get_weather_display(), "messages":messages}
 
 ##HABITAT MANAGER
@@ -633,8 +633,9 @@ class Animal(models.Model):
         self.health = self.health + meal["nutrition"]
         self.validate_health().validate_happiness()
         self.save()
-        self.habitat.all()[0].zoo.owner.money = self.habitat.all()[0].zoo.owner.money - meal["price"]
-        self.habitat.all()[0].zoo.owner.save()
+        home = self.habitat.all()[0]
+        home.zoo.owner.money = home.zoo.owner.money - meal["price"]
+        home.zoo.owner.save()
         death = self.death_check()
         if death == False:
             return self.feed_message(food, meal["taste"], meal["nutrition"])
