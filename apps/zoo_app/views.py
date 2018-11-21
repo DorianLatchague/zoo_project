@@ -94,21 +94,55 @@ def daily_log(request):
 def buy_building(request, id, location):
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
-        if user.money < 6000:
+        if request.POST['climate'] == "forest" and user.money < 6000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['climate'] == "arctic" and user.money < 7000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['climate'] == "jungle" and user.money < 8000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['climate'] == "savanna" and user.money < 9000:
             messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
         else:
             zoo = Zoo.objects.get(id=int(id))
             habitat = zoo.add_exhibit(request.POST['climate'], str(request.POST['name']), int(location))
             return redirect('/zoo/building/'+str(habitat.id))
-    return redirect('/build_store/'+str(location))
+    return redirect('/zoo/'+str(id)+'/build_store/'+str(location))
 
 def buy_animal(request, building_id):
     user = Users.objects.get(id=request.session['id'])
     if request.method=="POST":
-        if user.money < 1200:
+        if request.POST['breed'] == "grizzly_bear" and user.money < 4000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "wolf" and user.money < 2000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "owl" and user.money < 1000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "giraffe" and user.money < 4000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "lion" and user.money < 4000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "rhino" and user.money < 4000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "african_elephant" and user.money < 4000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "polar_bear" and user.money < 4000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "arctic_fox" and user.money < 1200:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "penguin" and user.money < 2000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "tiger" and user.money < 3200:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "orangutan" and user.money < 4000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "fruit_bat" and user.money < 2000:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['breed'] == "asian_elephant" and user.money < 3800:
             messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
         else:
-            Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], str(request.POST['name']))
+            animal = Habitat.objects.get(id=int(building_id)).add_animal(request.POST['breed'], str(request.POST['name']))
+            if not animal:
+                messages.error(request, "<p style='color: red;'>Your exhibit is too full.</p>", extra_tags="capacity")
     return redirect('/zoo/building/'+str(building_id))
 
 def change_ticket_price(request, zoo_id):
@@ -122,11 +156,19 @@ def buy_food(request, animal_id):
     animal_habitat = animal.habitat.id
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
-        if user.money < 80:
+        if request.POST['food'] == "grasses" and user.money < 80:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['food'] == "leaves" and user.money < 100:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['food'] == "fruit" and user.money < 120:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['food'] == "meat" and user.money < 140:
+            messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
+        elif request.POST['food'] == "fish" and user.money < 160:
             messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
         else:
             message = animal.feed(request.POST['food'])
-            messages.success(request, "<p style='color: green;'>"+message+"</p>", extra_tags=animal.id)
+            messages.success(request, "<p style='color: blue;'>"+message+"</p>", extra_tags=animal.id)
     return redirect('/zoo/building/'+str(animal_habitat))
 
 def advance_day(request):

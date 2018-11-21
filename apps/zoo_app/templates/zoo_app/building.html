@@ -19,16 +19,18 @@
             <th>Breed</th>
             <th>Happiness</th>
             <th>Health</th>
+            <th>Size</th>
             <th>Food choices</th>
         </tr>
     </thead>
     <tbody>
         {% for animal in this_building.inhabitants.all %}
         <tr>
-            <td class="animal_info" style="cursor: pointer; color: green; text-decoration: underline;" data-toggle="popover" title="Animal Information" data-content="Name: {{animal.name}}, Breed: {{animal.get_breed_display}}, Description: {{animal.description}}, Size: {{animal.size}}">{{animal.name}}</td>
+            <td class="animal_info" style="cursor: pointer; color: green; text-decoration: underline;" data-toggle="popover" title="Animal Information" data-content="Name: {{animal.name}}, Breed: {{animal.get_breed_display}}, Description: {{animal.description}}">{{animal.name}}</td>
             <td>{{animal.get_breed_display}}</td>
             <td>{{animal.happiness}}</td>
             <td>{{animal.health}}</td>
+            <td>{{animal.size}}</td>
             <td>
                 <form style="display: inline-block;" action="/zoo/buy_food/{{animal.id}}" method="post">
                     {% csrf_token %}

@@ -2,16 +2,30 @@
 
 {% block main %}
 <h1>Building Store: Location {{location}}</h1>
+{% if messages %}
+{% for message in messages %}
+{{message|safe}}
+{% endfor %}
+{% endif %}
 <form action="/zoo/{{zoo.id}}/buy_building/{{location}}" method="post">
     {% csrf_token %}
     <label>Building Name:</label>
     <input type="text" name="name" placeholder="Insert a name here">
-    <select style="display: block;" name="climate">
-        <option value="arctic">Arctic: 7000 ZooCash</option>
-        <option value="savanna">Savanna: 9000 ZooCash</option>
-        <option value="forest">Forest: 6000 ZooCash</option>
-        <option value="jungle">Jungle: 8000 ZooCash</option>
+    <select class="select" style="display: block;" name="climate">
+        <option value="forest" price="6000">Forest</option>
+        <option value="arctic" price="7000">Arctic</option>
+        <option value="jungle" price="8000">Jungle</option>
+        <option value="savanna" price="9000">Savanna</option>
     </select>
-    <button style="margin-top: 10px;">Build</button>
+    <button class="price">6000 ZooCash</button>
+    <script>
+    $( ".select" ).change(function () {
+        var str = ""
+        $( ".select option:selected" ).each(function() {
+            str += $(this).attr('price')+" ZooCash";
+        });
+        $( ".price" ).text( str );
+    })
+    </script>
 </form>
 {% endblock %}
