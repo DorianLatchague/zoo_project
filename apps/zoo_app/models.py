@@ -324,24 +324,32 @@ class Zoo(models.Model):
     
     def average_happiness(self):
         exhibits = self.exhibits.all()
-        all_animals = 0
+        num_animals = 0
         total_happiness = 0
         for exhibit in exhibits:
-            all_animals = animals + exhibit.inhabitants.count()
+            num_animals = num_animals + exhibit.inhabitants.count()
+            all_animals = exhibit.inhabitants.all()
             for animal in all_animals:
-                total_happiness = animal.happiness
-        average_happiness = total_happines//all_animals
+                total_happiness = total_happiness+animal.happiness
+        if num_animals==0:
+            average_happiness=0
+        else:
+            average_happiness = total_happiness//num_animals
         return average_happiness
  
     def average_health(self):
         exhibits = self.exhibits.all()
-        all_animals = 0
+        num_animals = 0
         total_health = 0
         for exhibit in exhibits:
-            all_animals = animals + exhibit.inhabitants.count()
+            num_animals = num_animals + exhibit.inhabitants.count()
+            all_animals = exhibit.inhabitants.all()
             for animal in all_animals:
-                total_health = animal.health
-        average_health = total_health//all_animals
+                total_health = total_health+animal.health
+        if num_animals==0:
+            average_health=0
+        else:
+            average_health = total_health//num_animals
         return average_health
         
     #ADD EXHIBIT TO ZOO
@@ -361,13 +369,28 @@ class Zoo(models.Model):
                 animal.save()
         self.update_weather()
         self.save()
+        count = 0
+        messages = []
         for exhibit in all_exhibits:
             for animal in exhibit.inhabitants.all():
                 animal.day_start()
+                animal.age = animal.age+1
                 animal.save()
+                if animal.health == 0:
+                    dead = animal.die()
+                    message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of malnutrition."
+                    messages.append(message)
+                elif animal.happiness == 0:
+                    dead = animal.die()
+                    message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of sadness."
+                    messages.append(message)
+                count = count + 1
         # update_events(self)
-        daily_visitors = self.zoo_popularity() * self.exhibits.count()
-        return {"daily_visitors": daily_visitors, "weather": self.get_weather_display(),}
+        messages.append("The average happiness of your animals is " + str(self.average_happiness())+".")
+        messages.append("The average health of your animals is " + str(self.average_health())+".")
+        factor = (self.average_happiness())*(self.average_health())//100
+        daily_visitors = self.zoo_popularity() *factor *count//self.exhibits.count()
+        return {"daily_visitors": daily_visitors, "weather": self.get_weather_display(), "messages":messages}
 
 ##HABITAT MANAGER
 class HabitatManager(models.Manager):
@@ -507,6 +530,30 @@ class Animal(models.Model):
     def attractiveness(self):
         attractiveness = int((self.health + self.happiness)/2)*(self.popularity/100)
         return attractiveness # a number between 0 and 100
+    
+    def death_check(self):
+        if self.age>=self.lifespan:
+            dead = self.die()
+            message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of old age."
+            return message
+        if self.health == 0:
+            dead = self.die()
+            message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of malnutrition."
+            return message
+        if self.happiness == 0:
+            dead = self.die()
+            message = "Your "+ str(dead[0]) + " "+str(dead[1])+" has died of sadness."
+            return message
+        else:
+            return False
+
+    def die(self):
+        death = [self.breed, self.name]
+        self.delete()
+        return death
+    
+    def display_age(self):
+        return self.age//50
 
 #DAY POST
     def day_start(self):
@@ -526,18 +573,16 @@ class Animal(models.Model):
     def validate_health(self):
         if self.health>100:
             self.health=100
-        if self.health<1:
-            #add death event
-            self.health=1
+        if self.health<0:
+            self.health=0
         self.save()
         return self
 
     def validate_happiness(self):
         if self.happiness>100:
             self.happiness=100
-        if self.happiness<1:
-            #add death event
-            self.happiness=1
+        if self.happiness<0:
+            self.happiness=0
         self.save()
         return self
 
@@ -550,8 +595,12 @@ class Animal(models.Model):
         self.save()
         self.habitat.zoo.owner.money = self.habitat.zoo.owner.money - meal["price"]
         self.habitat.zoo.owner.save()
-        return self.feed_message(food, meal["taste"], meal["nutrition"])
-    
+        death = self.death_check()
+        if death == False:
+            return self.feed_message(food, meal["taste"], meal["nutrition"])
+        else:
+            return death
+
     def feed_message(self, food, taste, nutrition):
         pet = self.get_breed_display()
         message = ""
@@ -578,7 +627,7 @@ class Animal(models.Model):
         if taste ==-5:
             message = "Your "+pet +" hates " +food+ "!"
 
-        if nutrition >3:
+        if nutrition ==5:
             message = message + " It keeps them extremely healthy!"
         if nutrition ==3 or nutrition == 4:
             message = message + " It's good for their health."

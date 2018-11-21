@@ -26,7 +26,7 @@
     <tbody>
         {% for animal in this_building.inhabitants.all %}
         <tr>
-            <td class="animal_info" style="cursor: pointer; color: green; text-decoration: underline;" data-toggle="popover" title="Animal Information" data-content="Name: {{animal.name}}, Breed: {{animal.get_breed_display}}, Description: {{animal.description}}">{{animal.name}}</td>
+            <td class="animal_info" style="cursor: pointer; color: green; text-decoration: underline;" data-toggle="popover" title="Animal Information" data-content="Name: {{animal.name}}, Breed: {{animal.get_breed_display}}, Age: {{animal.display_age}}, Description: {{animal.description}}">{{animal.name}}</td>
             <td>{{animal.get_breed_display}}</td>
             <td>{{animal.happiness}}</td>
             <td>{{animal.health}}</td>

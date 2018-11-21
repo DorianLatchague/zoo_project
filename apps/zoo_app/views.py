@@ -22,7 +22,7 @@ def create_zoo(request):
 def creating_zoo(request):
     user = Users.objects.get(id=request.session['id'])
     if request.method == "POST":
-        if user.money < 35000:
+        if user.money < 30000:
             messages.error(request, "<p style='color: red;'>You cannot afford this.</p>", extra_tags="money")
         else:
             zoo = Zoo.objects.create_zoo(user, request.POST['name'])
@@ -178,10 +178,11 @@ def advance_day(request):
     user = Users.objects.get(id=request.session['id'])
     for zoo in user.zoos.all():
         info = zoo.advance_day()
+        print(info["messages"])
         daily_money = user.advance_day_money(info['daily_visitors'], zoo.ticket_price) 
-        request.session['daily_log'][zoo.name] = {"name": zoo.name, "daily_money" : daily_money,
-        "daily_visitors" : info['daily_visitors']}
+        request.session['daily_log'][zoo.name] = {"name": zoo.name, "daily_money" : daily_money, "daily_visitors" : info['daily_visitors'], "messages": info["messages"]}
         request.session['daily_log'][zoo.name]["weather"] = info['weather']
+
         zoo.ticket_price = zoo.tomorrows_ticket_price
         zoo.save()
         request.session['daily_log'][zoo.name]["ticket_price"] = zoo.ticket_price
