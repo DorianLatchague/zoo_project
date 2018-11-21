@@ -56,27 +56,34 @@
         </nav>
         {% endblock nav %}
         {% block rules %}
-        <div class="rules" style="border: 2px solid black; display: none; position: fixed; background-color: green;">
-            <h1>Rules!</h1>
-            <p>Insert rules here!</p>
-            <button id="close_rules">Close</button>
+        <div class="rules" style="border: 2px solid black; display: none; position: fixed; background-color: white; width: 100%;">
+            <h1 style="text-align: center;">Rules!</h1>
+            <p style="font-weight: bold; text-align: center;">Your goal is to gather animals into the different exhibits inside your zoo.</p>
+            <p style="text-align: center;">By clicking on the empty exhibits (Under Construction), you will be redirected to the exhibit store. There you may choose to buy different exhibits based on your preference.</p>
+            <p style="text-align: center;">Once you've built an exhibit, you may choose to buy animals in the animal store until you have run out of space in that exhibit.</p>
+            <p style="text-align: center;">You can see which animals you have in each exhibits by clicking on your new exhibit in the zoo tab.</p>
+            <p style="text-align: center;">Each one of your animals have a happiness rating and a health rating. The maximum rating for both of these is 100. Keeping your animals healthy and happy is important to keep your customers coming back. If an animal's health falls to 0, it will die.</p>
+            <p style="text-align: center;">Clicking on the day button in your navigation bar will show the daily log with important information regarding your current day.</p>
+            <p style="text-align: center;">Clicking on the next day button in your navigation bar will move you on to the next day: updating your daily log and earning money from your customers.</p>
+            <p style="text-align: center;">If you wish to change your ticket price, click on the entrance image in your zoo. Keep in mind that the more expensive your tickets are, the less likely customers are to come visit your zoo.</p>
+            <button id="close_rules" style="float: right;">Close</button>
         </div>
         {% endblock rules %}
         {% block daily_log %}
-        <div class="daily_log" style="border: 2px solid black; display: none; position: fixed; background-color: green;">
-            <h1>Welcome to your Daily Log!</h1>
+        <div class="daily_log" style="border: 2px solid black; display: none; position: fixed; background-color: white; width: 100%;">
+            <h1 style="text-align: center;">Welcome to your Daily Log!</h1>
             {% if "daily_log" in request.session %}
             {% for key, value in request.session.daily_log.items %}
-            <h1>{{value.name}}</h1>
-            <p>Your zoo sold {{value.daily_visitors}} tickets and earned you {{value.daily_money}} ZooCash.</p>
-            <p>The weather today is {{value.weather}}.</p>
-            <p>The ticket price today is {{value.ticket_price}}.</p>
-            <p>The news for today is: {%for message in value.messages%}<br>{{message}}{%endfor%}</p>
+            <h1 style="text-align: center;">{{value.name}}</h1>
+            <p style="text-align: center;">Your zoo sold {{value.daily_visitors}} tickets and earned you {{value.daily_money}} ZooCash.</p>
+            <p style="text-align: center;">The weather today is {{value.weather}}.</p>
+            <p style="text-align: center;">The ticket price today is {{value.ticket_price}}.</p>
+            <p style="text-align: center;">The news for today is: {%for message in value.messages%}<br>{{message}}{%endfor%}</p>
             {% endfor %}
             {% else %}
-            <p>You do not have a daily log yet!</p>
+            <p style="text-align: center;">You do not have a daily log yet!</p>
             {% endif %}
-            <button id="close_daily_log">Close</button>
+            <button id="close_daily_log" style="float: right;">Close</button>
         </div>
         {% endblock daily_log %}
         <div class="main">
