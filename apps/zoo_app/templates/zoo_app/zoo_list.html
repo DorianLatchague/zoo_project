@@ -1,10 +1,27 @@
 {% extends 'zoo_app/base.html' %}
 
 {% block main %}
-<ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Zoo ID</th>
+            <th>Zoo Name</th>
+            <th>Number of Exhibits</th>
+            <th>Ticket Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
 {% for zoo in zoos %}
-    <a href="/zoo/{{zoo.id}}"><li>Zoo ID: {{zoo.id}}, Zoo Name: {{zoo.name}}</li></a>
+        <tr>
+            <td>{{zoo.id}}</td>
+            <td>{{zoo.name}}</td>
+            <td>{{zoo.exhibits.count}}</td>
+            <td>{{zoo.ticket_price}} ZooCash</td>
+            <td><a href="/zoo/{{zoo.id}}">Visit this Zoo</a></td>
+        </tr>
 {% endfor %}
-</ul>
-<a href="/zoo/create_zoo">Create a Zoo! (Price: 35000 ZooCash)</a>
+    </tbody>
+</table>
+<a class="btn btn-outline-primary" href="/zoo/create_zoo">Create a Zoo for 35000 ZooCash.</a>
 {% endblock %}

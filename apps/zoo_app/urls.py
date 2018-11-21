@@ -15,5 +15,4 @@ urlpatterns = [
     url(r'^(?P<zoo_id>\d+)/ticket_price$', views.change_ticket_price),
     url(r'^buy_food/(?P<animal_id>\d+)$', views.buy_food),
     url(r'^advance_day$', views.advance_day),
-    url(r'^daily_log$', views.daily_log),
 ]

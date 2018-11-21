@@ -84,13 +84,6 @@ def manage(request, id):
     }
     return render(request, 'zoo_app/manage.html', context)
 
-def daily_log(request):
-    user = Users.objects.get(id=request.session['id'])
-    context={
-        "user" : user,
-    }
-    return render(request, 'zoo_app/daily_log.html', context)
-
 def buy_building(request, id, location):
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
