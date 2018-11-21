@@ -10,158 +10,158 @@
 {% if this_building.climate == "arctic" %}
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Arctic Fox</span>
         </div>
         <input type="hidden" name="breed" value="arctic_fox">
-        <input name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 1200 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Polar Bear</span>
         </div>
         <input type="hidden" name="breed" value="polar_bear">
-        <input name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 4000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Penguin</span>
         </div>
         <input type="hidden" name="breed" value="penguin">
-        <input name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 2000 ZooCash</button>
     </div>
 </form>
 {% elif this_building.climate == "savanna" %}
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Lion</span>
         </div>
         <input type="hidden" name="breed" value="lion">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 4000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Rhino</span>
         </div>
         <input type="hidden" name="breed" value="rhino">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 4000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Giraffe</span>
         </div>
         <input type="hidden" name="breed" value="giraffe">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 4000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">African Elephant</span>
         </div>
         <input type="hidden" name="breed" value="african_elephant">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 4000 ZooCash</button>
     </div>
 </form>
 {% elif this_building.climate == "forest" %}
 <form style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Owl</span>
         </div>
         <input type="hidden" name="breed" value="owl">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 1000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Grizzly Bear</span>
         </div>
         <input type="hidden" name="breed" value="grizzly_bear">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 4000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Wolf</span>
         </div>
         <input type="hidden" name="breed" value="wolf">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 2000 ZooCash</button>
     </div>
 </form>
 {% else %}
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Fruit Bat</span>
         </div>
         <input type="hidden" name="breed" value="fruit_bat">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%"class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 2000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Tiger</span>
         </div>
         <input type="hidden" name="breed" value="tiger">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 3200 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Orangutan</span>
         </div>
         <input type="hidden" name="breed" value="orangutan">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 4000 ZooCash</button>
     </div>
 </form>
 <form class="form-row" style="margin: 0 15px" action="/zoo/{{this_building.id}}/buy_animal" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
+    <div>
+        <div style="display: inline-block;" class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Asian Elephant</span>
         </div>
         <input type="hidden" name="breed" value="asian_elephant">
-        <input class="form-control" name="name" type="text" placeholder="Enter a name">
+        <input style="display: inline-block; width: 30%" class="form-control" name="name" type="text" placeholder="Enter a name">
         <button class="btn btn-outline-primary">Buy for 3800 ZooCash</button>
     </div>
 </form>

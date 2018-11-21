@@ -1,7 +1,7 @@
 {% extends 'zoo_app/base.html' %}
 
 {% block main %}
-<h1 style="text-align: center; margin-top: 10px;">Exhibit Store: Location {{location}}</h1>
+<h1 style="margin: 10px;">Exhibit Store: Location {{location}}</h1>
 {% if messages %}
 {% for message in messages %}
 {{message|safe}}
@@ -9,16 +9,16 @@
 {% endif %}
 <form action="/zoo/{{zoo.id}}/buy_building/{{location}}" method="post">
     {% csrf_token %}
-    <h4 style="text-align: center;">Enter a name and an exhibit type:</h4>
-    <div style="width: 80%; margin: 10px auto;">
-        <input style="inline-block;" class="col form-control" type="text" name="name" placeholder="Insert a name here">
-        <select style="inline-block;" class="select form-control col" name="climate">
+    <h4 style="margin: 10px;">Enter a name and an exhibit type:</h4>
+    <div style="margin: 10px;">
+        <input style="display: inline-block; width: 25%;" class="form-control" type="text" name="name" placeholder="Insert a name here">
+        <select style="display: inline-block; width: 25%;" class="select form-control" name="climate">
             <option value="forest" price="6000">Forest</option>
             <option value="arctic" price="7000">Arctic</option>
             <option value="jungle" price="8000">Jungle</option>
             <option value="savanna" price="9000">Savanna</option>
         </select>
-        <button style="inline-block;" class="price btn btn-outline-primary">6000 ZooCash</button>
+        <button style="display: inline-block;" class="price btn btn-outline-primary">6000 ZooCash</button>
     </div>
     <script>
     $( ".select" ).change(function () {
