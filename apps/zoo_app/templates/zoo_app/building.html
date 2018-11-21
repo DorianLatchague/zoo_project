@@ -15,8 +15,8 @@
 <table class="table">
     <thead class="thead-light">
         <tr>
-            <th>Name</th>
             <th>Breed</th>
+            <th>Name</th>
             <th>Happiness</th>
             <th>Health</th>
             <th>Size</th>
@@ -28,8 +28,13 @@
     <tbody>
         {% for animal in this_building.inhabitants.all %}
         <tr>
+            {% load static %}
+            {% if animal.breed == 'african_elephant' or animal.breed == 'fruit_bat' or animal.breed == 'giraffe' or animal.breed == 'grizzly_bear' or animal.breed == 'penguin' or animal.breed == 'tiger' or animal.breed == 'wolf' %}
+            <td><img style="height: 100px; width: auto;" src="{% static 'zoo_app/img/'|add:animal.breed|add:'.gif' %}" alt="{{animal.breed}}"></td>
+            {% else %}
+            <td><img style="height: 100px; width: auto;" src="{% static 'zoo_app/img/'|add:animal.breed|add:'.png' %}" alt="{{animal.breed}}"></td>
+            {% endif %}
             <td class="animal_info" style="cursor: pointer; color: green; text-decoration: underline;" data-toggle="popover" title="Animal Information" data-content="Name: {{animal.name}}, Breed: {{animal.get_breed_display}}, Age: {{animal.display_age}}, Description: {{animal.description}}">{{animal.name}}</td>
-            <td>{{animal.get_breed_display}}</td>
             <td>{{animal.happiness}}</td>
             <td>{{animal.health}}</td>
             <td>{{animal.size}}</td>
