@@ -71,6 +71,7 @@
             <p>Your zoo sold {{value.daily_visitors}} tickets and earned you {{value.daily_money}} ZooCash.</p>
             <p>The weather today is {{value.weather}}.</p>
             <p>The ticket price today is {{value.ticket_price}}.</p>
+            <p>The news for today is: {%for message in value.messages%}<br>{{message}}{%endfor%}</p>
             {% endfor %}
             {% else %}
             <p>You do not have a daily log yet!</p>
