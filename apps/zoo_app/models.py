@@ -314,30 +314,34 @@ class Zoo(models.Model):
                 for inhabitant in all_inhabitants:
                     all_animals.append(inhabitant)
                     count = count + 1
-            index = random.randint(0,count-1)
-            random_animal = all_animals[index]
-            return random_animal
+            if count != 0:
+                index = random.randint(0,count-1)
+                random_animal = all_animals[index]
+                return random_animal
+            else:
+                return None
     
     def create_events(self):
         event_no = random.randint(1,12)
         if event_no ==3:
             #escape!
             escapee = self.get_random_animal()
-            resolution_day = self.owner.day+4
-            event_message = "Your "+ escapee.breed +", "+escapee.name +", has escaped from the zoo!!"
-            resolution_message = "Your "+ escapee.breed +", "+escapee.name +", has been found and returned to the zoo."
-            new_event = Event.objects.create(
-                zoo = self,
-                name = "animal_escape",
-                day = self.owner.day+1,
-                resolution_day = resolution_day,
-                event_data1=escapee.habitat.all()[0].location,
-                event_message = event_message,
-                resolution_message = resolution_message
-            )
-            new_event.affected_animals.add(escapee)
-            escapee.habitat.remove(escapee.habitat.all()[0])
-            return new_event.event_message
+            if escapee != None:
+                resolution_day = self.owner.day+4
+                event_message = "Your "+ escapee.breed +", "+escapee.name +", has escaped from the zoo!!"
+                resolution_message = "Your "+ escapee.breed +", "+escapee.name +", has been found and returned to the zoo."
+                new_event = Event.objects.create(
+                    zoo = self,
+                    name = "animal_escape",
+                    day = self.owner.day+1,
+                    resolution_day = resolution_day,
+                    event_data1=escapee.habitat.all()[0].location,
+                    event_message = event_message,
+                    resolution_message = resolution_message
+                )
+                new_event.affected_animals.add(escapee)
+                escapee.habitat.remove(escapee.habitat.all()[0])
+                return new_event.event_message
         return False
 
     def zoo_popularity(self):
