@@ -1,10 +1,16 @@
 {% extends 'zoo_app/base.html' %}
 
 {% block main %}
-<form>
+<h1>Change your Ticket Price:</h1>
+{% if messages %}
+{% for message in messages %}
+{{message|safe}}
+{% endfor %}
+{% endif %}
+<form action="/zoo/{{zoo.id}}/ticket_price" method="post">
     {% csrf_token %}
     <label>Ticket Price:</label>
-    <input name="ticket_price" type="text" value="{{ticket_price}}">
+    <input name="ticket_price" type="text" value="{{zoo.tomorrows_ticket_price}}">
     <button>Submit Change</button>
 </form>
 {% endblock %}

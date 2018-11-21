@@ -147,9 +147,11 @@ def buy_animal(request, building_id):
 
 def change_ticket_price(request, zoo_id):
     if request.method=="POST":
-        Zoo.objects.change_ticket_price_validator(request.POST)
-        zoo = Zoo.objects.get(id=int(zoo_id)).change_ticket_price(request.POST['price'])
-    return redirect('/zoo/manage')
+        if (request.POST['ticket_price']).isdigit()==False:
+            messages.error(request, "<p style='color: red;'>New ticket price is invalid.</p>", extra_tags="ticket_price")
+        else:
+            zoo = Zoo.objects.get(id=int(zoo_id)).change_ticket_price(int(request.POST['ticket_price']))
+    return redirect('/zoo/'+str(zoo_id)+'/manage')
 
 def buy_food(request, animal_id):
     animal = Animal.objects.get(id=int(animal_id))
@@ -180,6 +182,8 @@ def advance_day(request):
         request.session['daily_log'][zoo.name] = {"name": zoo.name, "daily_money" : daily_money,
         "daily_visitors" : info['daily_visitors']}
         request.session['daily_log'][zoo.name]["weather"] = info['weather']
+        zoo.ticket_price = zoo.tomorrows_ticket_price
+        zoo.save()
         request.session['daily_log'][zoo.name]["ticket_price"] = zoo.ticket_price
     user.advance_day()
     print(request.session['daily_log'])

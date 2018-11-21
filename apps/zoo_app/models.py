@@ -360,7 +360,6 @@ class Zoo(models.Model):
                 animal.day_end()
                 animal.save()
         self.update_weather()
-        self.ticket_price = self.tomorrows_ticket_price
         self.save()
         for exhibit in all_exhibits:
             for animal in exhibit.inhabitants.all():
