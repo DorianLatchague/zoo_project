@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^(?P<zoo_id>\d+)/ticket_price$', views.change_ticket_price),
     url(r'^buy_food/(?P<animal_id>\d+)$', views.buy_food),
     url(r'^advance_day$', views.advance_day),
+    url(r'^leaderboard$', views.leaderboard),
+    url(r'^user/(?P<user_id>\d+)', views.other_list),
 ]

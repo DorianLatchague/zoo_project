@@ -84,6 +84,29 @@ def manage(request, id):
     }
     return render(request, 'zoo_app/manage.html', context)
 
+def leaderboard(request):
+    user = Users.objects.get(id=request.session['id'])
+    context={
+        "user" : user,
+        "all_users" : Users.objects.all().order_by("-money")
+    }
+    return render(request, 'zoo_app/leaderboard.html', context)
+
+def other_list(request, user_id):
+    user = Users.objects.get(id=request.session['id'])
+    if Users.objects.filter(id=user_id):
+        user_list = Users.objects.get(id=user_id)
+        if user_list == user:
+            return redirect('/zoo')
+        else:
+            context={
+                "user" : user,
+                "zoos" : user_list.zoos.all()
+            }
+        return render(request, 'zoo_app/other_zoo_list.html', context)
+    else: 
+        return redirect('/zoo/leaderboard')
+        
 def buy_building(request, id, location):
     if request.method=="POST":
         user = Users.objects.get(id=request.session['id'])
@@ -175,7 +198,6 @@ def advance_day(request):
         daily_money = user.advance_day_money(info['daily_visitors'], zoo.ticket_price) 
         request.session['daily_log'][zoo.name] = {"name": zoo.name, "daily_money" : daily_money, "daily_visitors" : info['daily_visitors'], "messages": info["messages"]}
         request.session['daily_log'][zoo.name]["weather"] = info['weather']
-
         zoo.ticket_price = zoo.tomorrows_ticket_price
         zoo.save()
         request.session['daily_log'][zoo.name]["ticket_price"] = zoo.ticket_price

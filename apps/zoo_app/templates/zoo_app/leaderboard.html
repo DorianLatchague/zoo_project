@@ -1,0 +1,27 @@
+{% extends 'zoo_app/base.html' %}
+
+{% block main %}
+<h1>Leaderboard</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Money</th>
+            <th>Number of Zoos</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for all_user in all_users %}
+        <tr>
+            <td>{{all_user.id}}</td>
+            <td>{{all_user.username}}</td>
+            <td>{{all_user.money}} ZooCash</td>
+            <td>{{all_user.zoos.count}}</td>
+            <td><a href="/zoo/user/{{all_user.id}}/">Visit this User's Zoos</a></td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+{% endblock main %}

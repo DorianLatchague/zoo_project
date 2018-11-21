@@ -433,7 +433,10 @@ class Zoo(models.Model):
         messages.append("The average happiness of your animals is " + str(self.average_happiness())+".")
         messages.append("The average health of your animals is " + str(self.average_health())+".")
         factor = (self.average_happiness())*(self.average_health())//100
-        daily_visitors = self.zoo_popularity() *factor *count//self.exhibits.count()//100
+        if self.exhibits.count() != 0:
+            daily_visitors = self.zoo_popularity() *factor *count//self.exhibits.count()//100
+        else:
+            daily_visitors = 0
         return {"daily_visitors": daily_visitors, "weather": self.get_weather_display(), "messages":messages}
 
 ##HABITAT MANAGER
