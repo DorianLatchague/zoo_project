@@ -42,31 +42,41 @@ def zoo(request, id):
     if not 'id' in request.session:
         return redirect('/')
     else:
-        user = Users.objects.get(id=request.session['id'])
-        zoo = Zoo.objects.get(id=int(id))
-        exhibits = zoo.get_exhibits()
-        context={
-            "user" : user,
-            "zoo" : zoo,
-            "exhibits" : exhibits,
-        }
-        return render(request, 'zoo_app/zoo.html', context)
+        if not Zoo.objects.filter(id=int(id)):
+            return redirect('/zoo')
+        else:
+            user = Users.objects.get(id=request.session['id'])
+            zoo = Zoo.objects.get(id=int(id))
+            exhibits = zoo.get_exhibits()
+            context={
+                "user" : user,
+                "zoo" : zoo,
+                "exhibits" : exhibits,
+            }
+            return render(request, 'zoo_app/zoo.html', context)
 
 def build_store(request, id, location):
     if not 'id' in request.session:
         return redirect('/')
     else:
         user = Users.objects.get(id=request.session['id'])
-        zoo = user.zoos.get(id=int(id))
-        if user.id != zoo.owner.id:
-            return redirect('/zoo/'+str(id))
+        if Zoo.objects.filter(id=int(id)):
+            zoo = Zoo.objects.get(id=int(id))
+            if int(location) > zoo.capacity:
+                return redirect('/zoo/'+str(id))
+            if Habitat.objects.filter(zoo=zoo, location=int(location)):
+                return redirect('/zoo/'+str(id))
+            if user.id != zoo.owner.id:
+                return redirect('/zoo/'+str(id))
+            else:
+                context={
+                    "user" : user,
+                    "zoo" : zoo,
+                    "location" : int(location),
+                }
+                return render(request, 'zoo_app/building_store.html', context)
         else:
-            context={
-                "user" : user,
-                "zoo" : zoo,
-                "location" : int(location),
-            }
-            return render(request, 'zoo_app/building_store.html', context)
+            return redirect('/zoo')
 
 def animal_store(request, building_id):
     if not 'id' in request.session:
@@ -92,19 +102,22 @@ def building(request, building_id):
     if not 'id' in request.session:
         return redirect('/')
     else:
-        user = Users.objects.get(id=request.session['id'])
-        habitat = Habitat.objects.get(id=building_id)
-        zoo = habitat.zoo
-        capacity = habitat.capacity
-        fullness = habitat.how_full()
-        context={
-            "user" : user,
-            "zoo" : zoo,
-            "this_building" : habitat,
-            "capacity" : capacity,
-            "fullness" : fullness,
-        }
-        return render(request, 'zoo_app/building.html', context)
+        if not Habitat.objects.filter(id=int(building_id)):
+            return redirect('/zoo')
+        else:
+            user = Users.objects.get(id=request.session['id'])
+            habitat = Habitat.objects.get(id=int(building_id))
+            zoo = habitat.zoo
+            capacity = habitat.capacity
+            fullness = habitat.how_full()
+            context={
+                "user" : user,
+                "zoo" : zoo,
+                "this_building" : habitat,
+                "capacity" : capacity,
+                "fullness" : fullness,
+            }
+            return render(request, 'zoo_app/building.html', context)
 
 def manage(request, id):
     if not 'id' in request.session:
@@ -260,4 +273,5 @@ def advance_day(request):
             request.session['daily_log'][zoo.name]["ticket_price"] = zoo.ticket_price
         user.advance_day()
         print(request.session['daily_log'])
-        return redirect('/zoo/'+str(zoo.id))
+        next = request.GET.get('next', '/')
+        return redirect(next)

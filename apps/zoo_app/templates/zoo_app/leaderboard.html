@@ -8,6 +8,7 @@
             <th>ID</th>
             <th>Username</th>
             <th>Money</th>
+            <th>Day</th>
             <th>Number of Zoos</th>
             <th>Actions</th>
         </tr>
@@ -18,6 +19,7 @@
             <td>{{all_user.id}}</td>
             <td>{{all_user.username}}</td>
             <td>{{all_user.money}} ZooCash</td>
+            <td>Day {{all_user.day}}</td>
             <td>{{all_user.zoos.count}}</td>
             <td><a href="/zoo/user/{{all_user.id}}/">Visit this User's Zoos</a></td>
         </tr>

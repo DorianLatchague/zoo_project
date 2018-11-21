@@ -62,7 +62,7 @@
         {% endfor %}
     </tbody>
 </table>
-{% if this_building.owner.id == user.id %}
+{% if this_building.zoo.owner.id == user.id %}
 <a class="btn btn-outline-primary" href="/zoo/animal_store/{{this_building.id}}">Buy some Animals!</a>
 {% endif %}
 {% endblock %}

@@ -49,7 +49,7 @@
                 <a style="display: inline;" class="nav-link">{{user.money}} ZooCash</a>
                 <a style="color: black; display: inline;" class="nav-link" href="/zoo">Your Zoos</a> 
             </div>
-            <a style="color: black; cursor: pointer;" class="nav-link" data-toggle="confirmation" data-btn-ok-label="Continue" data-btn-ok-class="btn-outline-success" data-btn-cancel-label="Go Back" data-btn-cancel-class="btn-outline-danger" data-title="Are you sure?" data-content="Pressing 'Continue' will move you on to the next day." href="/zoo/advance_day">Next Day</a>
+            <a style="color: black; cursor: pointer;" class="nav-link" data-toggle="confirmation" data-btn-ok-label="Continue" data-btn-ok-class="btn-outline-success" data-btn-cancel-label="Go Back" data-btn-cancel-class="btn-outline-danger" data-title="Are you sure?" data-content="Pressing 'Continue' will move you on to the next day." href="/zoo/advance_day?next={{ request.path|urlencode }}">Next Day</a>
             <a id="rules" style="color: black; cursor: pointer;" class="nav-item nav-link">Rules</a>
             <a href="/zoo/leaderboard" style="color: black" class="nav-item nav-link">Leaderboard</a>
             <a href="/myaccount/{{user.id}}" style="color: black" class="nav-link">Manage your Account</a>
